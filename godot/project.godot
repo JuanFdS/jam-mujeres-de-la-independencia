@@ -10,9 +10,9 @@ config_version=5
 
 [application]
 
-config/name="MyGame"
+config/name="mujeres-de-la-independencia"
 run/main_scene="res://scenes/boot/godot/godot_bootsplash_scene.tscn"
-config/features=PackedStringArray("4.4")
+config/features=PackedStringArray("4.6")
 config/icon="res://icon.svg"
 
 [autoload]

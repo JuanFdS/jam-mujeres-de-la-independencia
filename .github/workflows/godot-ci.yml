@@ -3,12 +3,12 @@ name: Godot CI/CD Pipeline
 on: [push, pull_request]
 
 env:
-  GODOT_VERSION: "4.2.1"
+  GODOT_VERSION: "4.6.3"
   GODOT_STATUS: "stable"
 jobs:
   import-assets:
     runs-on: ubuntu-latest
-    container: barichello/godot-ci:4.2.1
+    container: barichello/godot-ci:4.6.3
     steps:
       - uses: actions/checkout@v4
       - name: Cache import assets
