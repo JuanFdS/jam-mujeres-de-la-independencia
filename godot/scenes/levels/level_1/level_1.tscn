@@ -1,0 +1,261 @@
+[gd_scene format=3 uid="uid://dwsxcio3bies1"]
+
+[ext_resource type="Texture2D" uid="uid://m8wp1kal6yrt" path="res://assets/2d/Streets of Fight files(1)/Streets of Fight files/Assets/Spritesheets/Brawler Girl/walk.png" id="1_5o1mp"]
+[ext_resource type="Script" uid="uid://dih2ehd6nvl67" path="res://scenes/game_elements/player/player.gd" id="1_spwf2"]
+[ext_resource type="Texture2D" uid="uid://jmqq3aoydwiu" path="res://assets/3d/kenney_prototype-textures/PNG/Dark/texture_04.png" id="1_x3ahk"]
+[ext_resource type="Texture2D" uid="uid://c616nv7mm6wax" path="res://assets/3d/kenney_prototype-textures/PNG/Green/texture_01.png" id="2_fngju"]
+[ext_resource type="Texture2D" uid="uid://dwanf7xv01lmc" path="res://assets/2d/Streets of Fight files(1)/Streets of Fight files/Assets/Spritesheets/Brawler Girl/idle.png" id="2_vmhy7"]
+[ext_resource type="Texture2D" uid="uid://p6fy3ltgc6q" path="res://assets/2d/Streets of Fight files(1)/Streets of Fight files/Assets/Spritesheets/Brawler Girl/jab.png" id="3_58uyj"]
+[ext_resource type="Texture2D" uid="uid://boks8ulx7qutb" path="res://assets/2d/Streets of Fight files(1)/Streets of Fight files/Assets/Spritesheets/Brawler Girl/jump.png" id="4_ojo11"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_fngju"]
+height = 0.1646347
+radius = 0.07128906
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1fq2y"]
+atlas = ExtResource("4_ojo11")
+region = Rect2(288, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hhmec"]
+atlas = ExtResource("2_vmhy7")
+region = Rect2(0, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfdrs"]
+atlas = ExtResource("2_vmhy7")
+region = Rect2(96, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldw0e"]
+atlas = ExtResource("2_vmhy7")
+region = Rect2(192, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmnd1"]
+atlas = ExtResource("2_vmhy7")
+region = Rect2(288, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wloe5"]
+atlas = ExtResource("3_58uyj")
+region = Rect2(0, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8spg0"]
+atlas = ExtResource("3_58uyj")
+region = Rect2(96, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5d3u7"]
+atlas = ExtResource("3_58uyj")
+region = Rect2(192, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0dvh"]
+atlas = ExtResource("4_ojo11")
+region = Rect2(192, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spwf2"]
+atlas = ExtResource("1_5o1mp")
+region = Rect2(0, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7uxs1"]
+atlas = ExtResource("1_5o1mp")
+region = Rect2(96, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3lh42"]
+atlas = ExtResource("1_5o1mp")
+region = Rect2(192, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vmhy7"]
+atlas = ExtResource("1_5o1mp")
+region = Rect2(288, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_58uyj"]
+atlas = ExtResource("1_5o1mp")
+region = Rect2(384, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojo11"]
+atlas = ExtResource("1_5o1mp")
+region = Rect2(480, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_31rk5"]
+atlas = ExtResource("1_5o1mp")
+region = Rect2(576, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3g2g"]
+atlas = ExtResource("1_5o1mp")
+region = Rect2(672, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_napug"]
+atlas = ExtResource("1_5o1mp")
+region = Rect2(768, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jeig"]
+atlas = ExtResource("1_5o1mp")
+region = Rect2(864, 0, 96, 63)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hhmec"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1fq2y")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hhmec")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wfdrs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldw0e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rmnd1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wloe5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8spg0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5d3u7")
+}],
+"loop": false,
+"name": &"jab",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0dvh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1fq2y")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spwf2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7uxs1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3lh42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vmhy7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_58uyj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ojo11")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_31rk5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3g2g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_napug")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1jeig")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_psa0i"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_x3ahk"]
+sky_material = SubResource("ProceduralSkyMaterial_psa0i")
+
+[sub_resource type="Environment" id="Environment_fngju"]
+background_mode = 2
+sky = SubResource("Sky_x3ahk")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fngju"]
+albedo_texture = ExtResource("1_x3ahk")
+uv1_scale = Vector3(5, 5, 5)
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5o1mp"]
+albedo_texture = ExtResource("2_fngju")
+albedo_texture_force_srgb = true
+uv1_scale = Vector3(3, 3, 3)
+uv1_triplanar = true
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_spwf2"]
+plane = Plane(0, 0, -1, 0)
+
+[node name="Level1" type="Node3D" unique_id=759788000]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=1298747055]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.023715377, 0)
+script = ExtResource("1_spwf2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=384453584]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08580494, 0)
+shape = SubResource("CylinderShape3D_fngju")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="CharacterBody3D" unique_id=228915447]
+centered = false
+offset = Vector2(-48, 0)
+billboard = 1
+shaded = true
+double_sided = false
+alpha_cut = 2
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_hhmec")
+animation = &"jab"
+autoplay = "walk"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=11440428]
+environment = SubResource("Environment_fngju")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=498036674]
+transform = Transform3D(0.5983505, -0.4330129, 0.67414886, 0.78173333, 0.49999997, -0.3726835, -0.1756976, 0.75, 0.6376757, 0.7862998, 2.7238226, -1.3619112)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1594278636]
+transform = Transform3D(1, 0, 0, 0, 0.93969244, 0.34202006, 0, -0.34202006, 0.93969244, -0.011533678, 0.734599, 1.1717387)
+
+[node name="Terrain" type="Node3D" parent="." unique_id=600169945]
+
+[node name="Floor" type="CSGBox3D" parent="Terrain" unique_id=1133942816]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.90301514, -0.5202278, 0.54193115)
+use_collision = true
+size = Vector3(13.623901, 1, 2.0838623)
+material = SubResource("StandardMaterial3D_fngju")
+
+[node name="Wall" type="CSGBox3D" parent="Terrain" unique_id=539790119]
+transform = Transform3D(1, 0, 0, 0, 0.9808771, 0.1946281, 0, -0.1946281, 0.9808771, -0.881691, 0.97332937, -0.64504266)
+use_collision = true
+size = Vector3(13.559341, 2.6956024, 0.2055664)
+material = SubResource("StandardMaterial3D_5o1mp")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain" unique_id=1515874670]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/StaticBody3D" unique_id=127469631]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7118597)
+shape = SubResource("WorldBoundaryShape3D_spwf2")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1991544000]
+transform = Transform3D(1, 0, 0, 0, 0.21625221, 0.9763375, 0, -0.9763375, 0.21625221, 0, 3.3736908, 1.5734864)
+light_energy = 8.0
+shadow_enabled = true
