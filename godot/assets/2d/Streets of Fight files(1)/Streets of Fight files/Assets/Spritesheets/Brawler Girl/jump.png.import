@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://boks8ulx7qutb"
 path.s3tc="res://.godot/imported/jump.png-b41e810fdd3e2fa22bdf05d20a3c5ed6.s3tc.ctex"
+path.etc2="res://.godot/imported/jump.png-b41e810fdd3e2fa22bdf05d20a3c5ed6.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/2d/Streets of Fight files(1)/Streets of Fight files/Assets/Spritesheets/Brawler Girl/jump.png"
-dest_files=["res://.godot/imported/jump.png-b41e810fdd3e2fa22bdf05d20a3c5ed6.s3tc.ctex"]
+dest_files=["res://.godot/imported/jump.png-b41e810fdd3e2fa22bdf05d20a3c5ed6.s3tc.ctex", "res://.godot/imported/jump.png-b41e810fdd3e2fa22bdf05d20a3c5ed6.etc2.ctex"]
 
 [params]
 

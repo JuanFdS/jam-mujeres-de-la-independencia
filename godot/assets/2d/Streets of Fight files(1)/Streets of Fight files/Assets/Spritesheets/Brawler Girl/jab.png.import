@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://p6fy3ltgc6q"
 path.s3tc="res://.godot/imported/jab.png-1c23e5e01ad0d77d15dfce37209cb2fc.s3tc.ctex"
+path.etc2="res://.godot/imported/jab.png-1c23e5e01ad0d77d15dfce37209cb2fc.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/2d/Streets of Fight files(1)/Streets of Fight files/Assets/Spritesheets/Brawler Girl/jab.png"
-dest_files=["res://.godot/imported/jab.png-1c23e5e01ad0d77d15dfce37209cb2fc.s3tc.ctex"]
+dest_files=["res://.godot/imported/jab.png-1c23e5e01ad0d77d15dfce37209cb2fc.s3tc.ctex", "res://.godot/imported/jab.png-1c23e5e01ad0d77d15dfce37209cb2fc.etc2.ctex"]
 
 [params]
 
