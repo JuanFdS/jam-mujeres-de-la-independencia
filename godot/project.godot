@@ -108,4 +108,5 @@ locale/translations=PackedStringArray("res://i18n/translation.de.translation", "
 [rendering]
 
 textures/vram_compression/import_etc2_astc=true
+lights_and_shadows/positional_shadow/soft_shadow_filter_quality=0
 environment/defaults/default_clear_color=Color(0.211765, 0.239216, 0.321569, 1)

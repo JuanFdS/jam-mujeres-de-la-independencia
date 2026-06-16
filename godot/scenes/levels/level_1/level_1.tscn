@@ -228,11 +228,11 @@ autoplay = "walk"
 environment = SubResource("Environment_fngju")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=498036674]
-transform = Transform3D(0.21302631, -0.89514, 0.3915924, 0.8652455, 0.35900393, 0.34995243, -0.45383942, 0.26427442, 0.8509928, 0.7862998, 2.7238226, -1.3619112)
+transform = Transform3D(0.16083413, -0.9116096, 0.37828648, 0.67205626, 0.38184702, 0.63445514, -0.7228228, 0.15218765, 0.6740668, 0.96240765, 2.6793098, -1.3641123)
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1594278636]
-transform = Transform3D(1, 0, 0, 0, 0.98480755, 0.17364815, 0, -0.17364815, 0.98480755, -0.011533678, 11.1203575, 60.971077)
+transform = Transform3D(1, 0, 0, 0, 0.98480755, 0.17364815, 0, -0.17364815, 0.98480755, -0.011533678, 14.6515255, 80.99732)
 current = true
 fov = 1.0
 
