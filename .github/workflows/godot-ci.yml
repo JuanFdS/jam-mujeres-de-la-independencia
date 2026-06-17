@@ -30,7 +30,7 @@ jobs:
           key: import-assets-${{ runner.os }}-${{ github.sha }}
       - name: install wine
         run: |
-          sudo apt install wine64
+          sudo apt install wine64 --fix-missing
           echo "WINE_PATH=$(which wine64)" >> $GITHUB_ENV
       - name: Export Game using Godot
         uses: firebelley/godot-export@v5.2.1
