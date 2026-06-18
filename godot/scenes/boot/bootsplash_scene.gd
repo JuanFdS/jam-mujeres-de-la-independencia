@@ -40,4 +40,5 @@ func _fade_out():
 	_change_scene()
 
 func _change_scene():
-	get_tree().change_scene_to_packed(next_scene)
+	var new_scene = next_scene.instantiate()
+	get_tree().change_scene_to_node(new_scene)
