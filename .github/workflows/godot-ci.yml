@@ -30,6 +30,7 @@ jobs:
           key: import-assets-${{ runner.os }}-${{ github.sha }}
       - name: install wine
         run: |
+          sudo apt update
           sudo apt install wine64
           echo "WINE_PATH=$(which wine64)" >> $GITHUB_ENV
       - name: Export Game using Godot
