@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dwsxcio3bies1"]
 
 [ext_resource type="Texture2D" uid="uid://m8wp1kal6yrt" path="res://assets/2d/Streets of Fight files(1)/Streets of Fight files/Assets/Spritesheets/Brawler Girl/walk.png" id="1_5o1mp"]
+[ext_resource type="Script" uid="uid://bgpa8q2gaoipp" path="res://scenes/levels/level_1/follow_player_camera.gd" id="1_58uyj"]
 [ext_resource type="Script" uid="uid://dih2ehd6nvl67" path="res://scenes/game_elements/player/player.gd" id="1_spwf2"]
 [ext_resource type="Texture2D" uid="uid://jmqq3aoydwiu" path="res://assets/3d/kenney_prototype-textures/PNG/Dark/texture_04.png" id="1_x3ahk"]
 [ext_resource type="Texture2D" uid="uid://c616nv7mm6wax" path="res://assets/3d/kenney_prototype-textures/PNG/Green/texture_01.png" id="2_fngju"]
@@ -204,8 +205,20 @@ plane = Plane(0, 0, -1, 0)
 
 [node name="Level1" type="Node3D" unique_id=759788000]
 
+[node name="SpotLight3D" type="OmniLight3D" parent="." unique_id=1999184490]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8074737, 1.9729154, 2.1784167)
+visible = false
+shadow_enabled = true
+omni_attenuation = 0.0
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1594278636 node_paths=PackedStringArray("player")]
+transform = Transform3D(1, 0, 0, 0, 0.93969256, 0.3420201, 0, -0.3420201, 0.93969256, 0, 38.594543, 104.2152)
+current = true
+fov = 1.0
+script = ExtResource("1_58uyj")
+player = NodePath("../CharacterBody3D")
+
 [node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=1298747055]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.023715377, 0)
 script = ExtResource("1_spwf2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=384453584]
@@ -213,11 +226,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08580494, 0)
 shape = SubResource("CylinderShape3D_fngju")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="CharacterBody3D" unique_id=228915447]
+lod_bias = 0.001
 centered = false
 offset = Vector2(-48, 0)
 billboard = 1
 shaded = true
-double_sided = false
 alpha_cut = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_hhmec")
@@ -227,14 +240,11 @@ autoplay = "walk"
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=11440428]
 environment = SubResource("Environment_fngju")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=498036674]
-transform = Transform3D(0.16083413, -0.9116096, 0.37828648, 0.67205626, 0.38184702, 0.63445514, -0.7228228, 0.15218765, 0.6740668, 0.96240765, 2.6793098, -1.3641123)
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=623587643]
+transform = Transform3D(0.015116446, -0.99746627, 0.069518, 0.40112594, 0.06973549, 0.9133647, -0.9158982, 0.014078528, 0.40116352, 0.96240765, 2.6793098, -1.3641123)
+light_energy = 0.3
 shadow_enabled = true
-
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1594278636]
-transform = Transform3D(1, 0, 0, 0, 0.98480755, 0.17364815, 0, -0.17364815, 0.98480755, -0.011533678, 14.6515255, 80.99732)
-current = true
-fov = 1.0
+directional_shadow_max_distance = 250.0
 
 [node name="Terrain" type="Node3D" parent="." unique_id=600169945]
 
@@ -246,6 +256,7 @@ material = SubResource("StandardMaterial3D_fngju")
 
 [node name="Wall" type="CSGBox3D" parent="Terrain" unique_id=539790119]
 transform = Transform3D(1, 0, 0, 0, 0.9808771, 0.1946281, 0, -0.1946281, 0.9808771, -0.881691, 0.97332937, -0.64504266)
+visible = false
 use_collision = true
 size = Vector3(13.559341, 2.6956024, 0.2055664)
 material = SubResource("StandardMaterial3D_5o1mp")
@@ -255,8 +266,3 @@ material = SubResource("StandardMaterial3D_5o1mp")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/StaticBody3D" unique_id=127469631]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7118597)
 shape = SubResource("WorldBoundaryShape3D_spwf2")
-
-[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1991544000]
-transform = Transform3D(1, 0, 0, 0, 0.83788073, 0.5458534, 0, -0.5458534, 0.83788073, 0, 2.3567426, 3.7722416)
-light_energy = 8.0
-shadow_enabled = true
