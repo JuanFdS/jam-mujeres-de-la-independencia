@@ -7,7 +7,14 @@
 [ext_resource type="Texture2D" uid="uid://p6fy3ltgc6q" path="res://assets/2d/Streets of Fight files(1)/Streets of Fight files/Assets/Spritesheets/Brawler Girl/jab.png" id="3_58uyj"]
 [ext_resource type="Texture2D" uid="uid://boks8ulx7qutb" path="res://assets/2d/Streets of Fight files(1)/Streets of Fight files/Assets/Spritesheets/Brawler Girl/jump.png" id="4_ojo11"]
 [ext_resource type="Texture2D" uid="uid://bm722ir3v3to6" path="res://assets/3d/kenney_prototype-textures/PNG/Dark/texture_13.png" id="7_58uyj"]
+[ext_resource type="Script" uid="uid://cq7jvfwimffdw" path="res://scenes/game_elements/sprite3d/mi_sprite3d.gd" id="7_hhmec"]
+[ext_resource type="Script" uid="uid://b7y5iy83w0sqf" path="res://scenes/game_elements/enemy_1/enemy_1.gd" id="7_ojo11"]
+[ext_resource type="Texture2D" uid="uid://cdrj4j03omwqd" path="res://assets/2d/Streets of Fight files(1)/Streets of Fight files/Assets/Spritesheets/Enemy Punk/hurt.png" id="8_1jeig"]
+[ext_resource type="Texture2D" uid="uid://ctc4cmk7hx6wq" path="res://assets/2d/Streets of Fight files(1)/Streets of Fight files/Assets/Spritesheets/Enemy Punk/punch.png" id="8_31rk5"]
 [ext_resource type="Texture2D" uid="uid://cycc7mosftdpo" path="res://assets/3d/kenney_prototype-textures/PNG/Orange/texture_10.png" id="8_58uyj"]
+[ext_resource type="Texture2D" uid="uid://2jvmx43uqjie" path="res://assets/2d/Streets of Fight files(1)/Streets of Fight files/Assets/Spritesheets/Enemy Punk/idle.png" id="8_w3g2g"]
+[ext_resource type="Script" uid="uid://bsb472gj70ykw" path="res://scenes/levels/level_1/debug.gd" id="8_wfdrs"]
+[ext_resource type="Texture2D" uid="uid://c87sn88n6sfr3" path="res://assets/2d/Streets of Fight files(1)/Streets of Fight files/Assets/Spritesheets/Enemy Punk/walk.png" id="10_napug"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_fngju"]
 height = 0.1646347
@@ -177,6 +184,146 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ynakb"]
+atlas = ExtResource("8_1jeig")
+region = Rect2(96, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vva6n"]
+atlas = ExtResource("8_w3g2g")
+region = Rect2(0, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vm2d2"]
+atlas = ExtResource("8_w3g2g")
+region = Rect2(96, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hws8l"]
+atlas = ExtResource("8_w3g2g")
+region = Rect2(192, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28n4u"]
+atlas = ExtResource("8_w3g2g")
+region = Rect2(288, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41r28"]
+atlas = ExtResource("8_31rk5")
+region = Rect2(0, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1iula"]
+atlas = ExtResource("8_31rk5")
+region = Rect2(96, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7p11"]
+atlas = ExtResource("8_31rk5")
+region = Rect2(192, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g76na"]
+atlas = ExtResource("8_1jeig")
+region = Rect2(0, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_658j2"]
+atlas = ExtResource("8_1jeig")
+region = Rect2(96, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7nyn5"]
+atlas = ExtResource("8_1jeig")
+region = Rect2(192, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dycye"]
+atlas = ExtResource("8_1jeig")
+region = Rect2(288, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1exhq"]
+atlas = ExtResource("10_napug")
+region = Rect2(0, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scqv6"]
+atlas = ExtResource("10_napug")
+region = Rect2(96, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jvpbq"]
+atlas = ExtResource("10_napug")
+region = Rect2(192, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yivqu"]
+atlas = ExtResource("10_napug")
+region = Rect2(288, 0, 96, 63)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ojo11"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ynakb")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vva6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vm2d2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hws8l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28n4u")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41r28")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1iula")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7p11")
+}],
+"loop": false,
+"name": &"jab",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g76na")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_658j2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7nyn5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dycye")
+}],
+"loop": false,
+"name": &"knockedout",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1exhq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_scqv6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jvpbq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yivqu")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_58uyj"]
 sky_top_color = Color(0.6061404, 0.61387587, 0.6293334, 1)
 sky_horizon_color = Color(0.038534924, 0.44936085, 0.78553134, 1)
@@ -208,47 +355,120 @@ uv1_triplanar = true
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_spwf2"]
 plane = Plane(0, 0, -1, 0)
 
-[node name="Level1" type="Node3D" unique_id=759788000]
+[sub_resource type="Animation" id="Animation_wfdrs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
 
-[node name="SpotLight3D" type="OmniLight3D" parent="." unique_id=1999184490]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8074737, 1.9729154, 2.1784167)
-visible = false
-shadow_enabled = true
-omni_attenuation = 0.0
+[sub_resource type="Animation" id="Animation_ldw0e"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.26666668, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rmnd1"]
+_data = {
+&"RESET": SubResource("Animation_wfdrs"),
+&"fade_in": SubResource("Animation_ldw0e")
+}
+
+[node name="Level1" type="Node3D" unique_id=759788000]
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1594278636 node_paths=PackedStringArray("player")]
 transform = Transform3D(1, 0, 0, 0, 0.9063077, 0.42261824, 0, -0.42261824, 0.9063077, 0, 47.210102, 100.1977)
 current = true
 fov = 1.0
 script = ExtResource("1_58uyj")
-player = NodePath("../CharacterBody3D")
+player = NodePath("../Player")
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=1298747055]
+[node name="Player" type="CharacterBody3D" parent="." unique_id=1298747055]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.745, 0, 0.215)
+collision_layer = 0
 script = ExtResource("1_spwf2")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=384453584]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=384453584]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08580494, 0)
 shape = SubResource("CylinderShape3D_fngju")
+debug_color = Color(0.94627875, 6.6420434e-06, 0.5908495, 0.41960785)
 
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="CharacterBody3D" unique_id=228915447]
-lod_bias = 0.001
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Player" unique_id=228915447]
+sorting_offset = 50000000.0
 centered = false
 offset = Vector2(-48, 0)
 billboard = 2
-alpha_cut = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_hhmec")
 animation = &"jab"
 autoplay = "walk"
+frame = 2
+frame_progress = 1.0
+script = ExtResource("7_hhmec")
+render_priority_offset = 1
+
+[node name="SpotLight3D" type="OmniLight3D" parent="Player" unique_id=1999184490]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48766887, 3.0823686, 2.178417)
+shadow_enabled = true
+omni_attenuation = 0.0
+
+[node name="Debug" type="Node3D" parent="Player" unique_id=911278662]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.66011393, 0)
+script = ExtResource("8_wfdrs")
+
+[node name="Label3D" type="Label3D" parent="Player/Debug" unique_id=1411354915]
+text = "Health: 100"
+font_size = 16
+
+[node name="Enemy" type="CharacterBody3D" parent="." unique_id=1338315346]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.74512565, 0, 0.21461171)
+collision_layer = 0
+script = ExtResource("7_ojo11")
+SPEED = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy" unique_id=973568109]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08580494, 0)
+shape = SubResource("CylinderShape3D_fngju")
+debug_color = Color(0.94627875, 6.6420434e-06, 0.5908495, 0.41960785)
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Enemy" unique_id=1250230813]
+lod_bias = 0.001
+centered = false
+offset = Vector2(-48, 0)
+billboard = 2
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ojo11")
+animation = &"walk"
+autoplay = "walk"
+script = ExtResource("7_hhmec")
+
+[node name="Debug" type="Node3D" parent="Enemy" unique_id=1163209288]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64969397, 0)
+script = ExtResource("8_wfdrs")
+
+[node name="Label3D" type="Label3D" parent="Enemy/Debug" unique_id=1806091799]
+text = "Health: 100"
+font_size = 16
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=11440428]
 environment = SubResource("Environment_fngju")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=623587643]
-transform = Transform3D(0.015116446, -0.99746627, 0.069518, 0.40112594, 0.06973549, 0.9133647, -0.9158982, 0.014078528, 0.40116352, 0.96240765, 2.6793098, -1.3641123)
-light_energy = 0.3
-shadow_enabled = true
-directional_shadow_max_distance = 250.0
 
 [node name="Terrain" type="Node3D" parent="." unique_id=600169945]
 
@@ -281,3 +501,17 @@ material = SubResource("StandardMaterial3D_fngju")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/StaticBody3D" unique_id=127469631]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7118597)
 shape = SubResource("WorldBoundaryShape3D_spwf2")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1841600500]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1824054968]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer" unique_id=1708202217]
+libraries/ = SubResource("AnimationLibrary_rmnd1")
+autoplay = &"fade_in"

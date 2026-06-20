@@ -1,5 +1,5 @@
+class_name Player
 extends CharacterBody3D
-
 
 const SPEED = 0.8
 const JUMP_VELOCITY = 2.0
@@ -8,6 +8,7 @@ const JUMP_VELOCITY = 2.0
 var attacking: bool = false
 
 func _ready() -> void:
+	add_to_group("player")
 	animated_sprite_3d.animation_finished.connect(on_animation_finished)
 
 func on_animation_finished():
