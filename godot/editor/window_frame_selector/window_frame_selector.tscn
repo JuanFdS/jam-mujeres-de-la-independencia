@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://dd1jpdh0c2p1i"]
+
+[ext_resource type="Script" uid="uid://b7n63nm5ijkhe" path="res://editor/window_frame_selector/window_frame_selector.gd" id="1_7has8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7has8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_35sqd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mksqy"]
+
+[node name="WindowFrameSelector" type="VBoxContainer" unique_id=2130244150]
+custom_minimum_size = Vector2(0, 25)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 25.0
+grow_horizontal = 2
+script = ExtResource("1_7has8")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1610085221]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=195796104]
+layout_mode = 2
+text = "Animation"
+
+[node name="OptionButton" type="OptionButton" parent="HBoxContainer" unique_id=1920779954]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayButton" type="Button" parent="." unique_id=673714877]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Play"
+
+[node name="HSeparator2" type="HSeparator" parent="." unique_id=1048579897]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="." unique_id=34477277]
+layout_mode = 2
+text = "Collision Window"
+
+[node name="CollisionFrameBegin" type="HSlider" parent="." unique_id=278253152]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_7has8")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_35sqd")
+
+[node name="CollisionFrameEnd" type="HSlider" parent="CollisionFrameBegin" unique_id=1852993548]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_7has8")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_35sqd")
+
+[node name="Label3" type="Label" parent="." unique_id=362066117]
+layout_mode = 2
+text = "Combo window "
+
+[node name="ComboWindowBegin" type="HSlider" parent="." unique_id=1506813901]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_7has8")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_35sqd")
+
+[node name="ComboWindowEnd" type="HSlider" parent="ComboWindowBegin" unique_id=844360239]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/slider = SubResource("StyleBoxEmpty_mksqy")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_7has8")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_35sqd")
