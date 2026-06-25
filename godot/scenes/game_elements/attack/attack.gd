@@ -2,6 +2,8 @@
 class_name Attack
 extends Node3D
 
+@export var is_air: bool = false
+@export var movement_speed_multiplier: float = 1.0
 @onready var area_3d: Area3D = $Area3D
 @export var power: float = 1.0
 var attacker: CharacterBody3D
@@ -10,9 +12,13 @@ var collision_time_left: float = 0.0
 @export_storage var collision_frame_begin: int = 0
 @export_storage var collision_frame_end: int = 0
 
+
 @export_storage var combo_window_frame_begin: int = 0
 @export_storage var combo_window_frame_end: int = 0
 @export var next_combo_attack: Attack
+
+@export_storage var cancel_window_frame_begin: int = 0
+@export_storage var cancel_window_frame_end: int = 0
 
 func _extend_inspector_property(
 	inspector: ExtendableInspector,
@@ -28,6 +34,7 @@ func _extend_inspector_property(
 			window_frame_selector.animation_name = animation
 			window_frame_selector.collision_window = [collision_frame_begin, collision_frame_end]
 			window_frame_selector.combo_window = [combo_window_frame_begin, combo_window_frame_end]
+			window_frame_selector.cancel_window = [cancel_window_frame_begin, cancel_window_frame_end]
 			inspector.add_property_editor("animation", window_frame_selector, true)
 			window_frame_selector.animation_selected.connect(func(animation_name):
 				animation = animation_name
@@ -39,6 +46,10 @@ func _extend_inspector_property(
 			window_frame_selector.combo_window_changed.connect(func(begin, end):
 				combo_window_frame_begin = begin
 				combo_window_frame_end = end
+			)
+			window_frame_selector.cancel_window_changed.connect(func(begin, end):
+				cancel_window_frame_begin = begin
+				cancel_window_frame_end = end
 			)
 			return true
 		return false
@@ -69,6 +80,11 @@ func get_combo_attack():
 	if can_combo:
 		return next_combo_attack
 	return null
+
+func is_cancellable():
+	var sprite := _animated_sprite_3d()
+	var can_cancel = sprite.animation == animation and sprite.frame in range(cancel_window_frame_begin, cancel_window_frame_end)
+	return can_cancel
 
 func start():
 	pass

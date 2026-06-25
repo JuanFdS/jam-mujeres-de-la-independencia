@@ -4,6 +4,7 @@ extends VBoxContainer
 signal animation_selected(animation_name: String)
 signal collision_window_changed(begin: int, end: int)
 signal combo_window_changed(begin: int, end: int)
+signal cancel_window_changed(begin: int, end: int)
 
 var animated_sprite_3d: AnimatedSprite3D
 var animation_name: String :
@@ -15,7 +16,8 @@ var animation_name: String :
 @onready var option_button: OptionButton = $HBoxContainer/OptionButton
 @onready var collision_sliders = [%CollisionFrameBegin, %CollisionFrameEnd]
 @onready var combo_sliders = [%ComboWindowBegin, %ComboWindowEnd]
-@onready var sliders: Array = collision_sliders + combo_sliders
+@onready var cancel_sliders = [%CancelWindowBegin, %CancelWindowEnd]
+@onready var slider_pairs: Array = [collision_sliders, combo_sliders, cancel_sliders]
 @onready var play_button: Button = %PlayButton
 var collision_window: Array :
 	set(values):
@@ -27,6 +29,11 @@ var combo_window: Array :
 		if not is_node_ready():
 			await ready
 		set_window_value(values, combo_sliders)
+var cancel_window: Array :
+	set(values):
+		if not is_node_ready():
+			await ready
+		set_window_value(values, cancel_sliders)
 
 func set_window_value(values, hsliders):
 	var begin = values.front()
@@ -48,18 +55,21 @@ func _ready() -> void:
 		if animation_name == animation:
 			option_button.select(option_button.item_count - 1)
 	option_button.item_selected.connect(on_item_selected)
-	for slider in sliders:
-		slider.min_value = 0
-		slider.ticks_on_borders = true
-		slider.value_changed.connect(func(new_value):
-			animated_sprite_3d.frame = int(new_value)
-			animated_sprite_3d.animation = animation_name
-			if slider in collision_sliders:
-				emit_window_changed(collision_window_changed, collision_sliders)
-			elif slider in combo_sliders:
-				emit_window_changed(combo_window_changed, combo_sliders)
-			queue_redraw()
-		)
+	for slider_pair in slider_pairs:
+		for slider in slider_pair:
+			slider.min_value = 0
+			slider.ticks_on_borders = true
+			slider.value_changed.connect(func(new_value):
+				animated_sprite_3d.frame = int(new_value)
+				animated_sprite_3d.animation = animation_name
+				if slider in collision_sliders:
+					emit_window_changed(collision_window_changed, collision_sliders)
+				elif slider in combo_sliders:
+					emit_window_changed(combo_window_changed, combo_sliders)
+				elif slider in cancel_sliders:
+					emit_window_changed(cancel_window_changed, cancel_sliders)
+				queue_redraw()
+			)
 
 func emit_window_changed(window_signal: Signal, hsliders: Array):
 	var values = hsliders.map(func(slider): return slider.value)
@@ -81,9 +91,10 @@ func _frame_count() -> int:
 
 func on_animation_selected():
 	var frame_count: int = _frame_count()
-	for slider in sliders:
-		slider.tick_count = frame_count + 1
-		slider.max_value = frame_count
+	for slider_pair in slider_pairs:
+		for slider in slider_pair:
+			slider.tick_count = frame_count + 1
+			slider.max_value = frame_count
 
 func _global_grabber_position(slider: HSlider) -> Vector2:
 	return slider.get_global_rect().position + Vector2.RIGHT * (slider.get_rect().size.x * (slider.value / slider.max_value))
@@ -93,7 +104,8 @@ func is_closer_to_mouse(slider_a: HSlider, slider_b: HSlider):
 
 func _process(_delta: float) -> void:
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		for slider_windows in [[%CollisionFrameBegin, %CollisionFrameEnd], [%ComboWindowBegin, %ComboWindowEnd]]:
+		for _slider_windows in slider_pairs:
+			var slider_windows = _slider_windows.duplicate()
 			slider_windows.sort_custom(self.is_closer_to_mouse)
 			slider_windows.front().mouse_filter = Control.MOUSE_FILTER_STOP
 			slider_windows.back().mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -102,7 +114,7 @@ func _draw() -> void:
 	var rect: Rect2 = $CollisionFrameBegin.get_rect()
 	var width: float = rect.size.x
 	var step_width: float = width / max(_frame_count(), 1)
-	for slider_window_pair in [[%CollisionFrameBegin, %CollisionFrameEnd], [%ComboWindowBegin, %ComboWindowEnd]]:
+	for slider_window_pair in slider_pairs:
 		var begin = slider_window_pair.front()
 		var end = slider_window_pair.back()
 		var collision_frame_begin: float = min(begin.value, end.value)

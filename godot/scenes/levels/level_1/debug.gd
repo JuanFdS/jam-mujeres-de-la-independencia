@@ -9,4 +9,4 @@ func watch(property_name: String, block: Callable):
 func _process(_delta: float) -> void:
 	label_3d.text = ""
 	for property in watchers.keys():
-		label_3d.text = "%s: %s}\n" % [property, watchers[property].call()]
+		label_3d.text += "%s: %s}\n" % [property, watchers[property].call()]

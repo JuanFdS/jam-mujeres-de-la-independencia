@@ -56,6 +56,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_7has8")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_35sqd")
 
@@ -79,6 +80,34 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/slider = SubResource("StyleBoxEmpty_mksqy")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_7has8")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_35sqd")
+
+[node name="Cancel Window" type="Label" parent="." unique_id=409417477]
+layout_mode = 2
+text = "Cancel window "
+
+[node name="CancelWindowBegin" type="HSlider" parent="." unique_id=1314795289]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_7has8")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_35sqd")
+value = 2.0
+
+[node name="CancelWindowEnd" type="HSlider" parent="CancelWindowBegin" unique_id=803528972]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/slider = SubResource("StyleBoxEmpty_mksqy")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_7has8")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_35sqd")
+value = 7.0

@@ -15,13 +15,15 @@ enum FacingDirection {
 enum State {
 	Idle,
 	Attacking,
-	Hurting
+	Hurting,
+	Jumping,
+	Running
 }
 
 var state: State = State.Idle
 var _state_data: Dictionary = {}
 
-func _current_attack():
+func _current_attack() -> Attack:
 	match state:
 		State.Attacking:
 			return state_data()["attack"]
@@ -48,6 +50,7 @@ func enter_state():
 
 func _ready() -> void:
 	add_to_group("player")
+	$Debug.watch("Current Attack: ", self._current_attack)
 	animated_sprite_3d.animation_finished.connect(on_animation_finished)
 
 func on_animation_finished():
@@ -60,16 +63,27 @@ func on_animation_finished():
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		match state:
+			State.Attacking:
+				if _current_attack().is_cancellable():
+					change_state(State.Jumping)
+					velocity.y = JUMP_VELOCITY
+			_:
+				change_state(State.Jumping)
+				velocity.y = JUMP_VELOCITY
 
 	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var movement := (transform.basis * Vector3(input_dir.x, 0, input_dir.y))
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-
-	if State.Attacking == state:
-		direction = Vector3.ZERO
-		movement = Vector3.ZERO
+	match state:
+		State.Attacking:
+			if _current_attack().is_cancellable() and (facing_direction * direction.x < 0):
+				change_state(State.Running)
+			else:
+				direction = Vector3(facing_direction, 0, 0)
+				movement = state_data()["attack"].movement_speed_multiplier * movement
 
 	if direction.x:
 		animated_sprite_3d.flip_h = direction.x < 0
@@ -87,13 +101,39 @@ func _physics_process(delta: float) -> void:
 		try_fast_attack()
 
 	move_and_slide()
+	update_state_based_on_movement()
 	_update_animation()
+
+func update_state_based_on_movement():
+	if not is_on_floor():
+		match state:
+			State.Idle, State.Running:
+				change_state(State.Jumping)
+			State.Attacking:
+				pass
+
+	if is_on_floor():
+		var is_moving = not(is_zero_approx(velocity.x) and is_zero_approx(velocity.z))
+		match state:
+			State.Idle:
+				if is_moving:
+					change_state(State.Running)
+			State.Running:
+				if not is_moving:
+					change_state(State.Idle)
+			State.Jumping:
+				if is_on_floor():
+					change_state(State.Idle)
+			State.Attacking:
+				if _current_attack().is_air and _current_attack().is_cancellable():
+					change_state(State.Idle)
 
 func try_fast_attack():
 	match state:
-		State.Idle:
-			if is_on_floor():
-				change_state(State.Attacking, { "attack": $HitBoxes/Attack1 })
+		State.Idle, State.Running:
+			change_state(State.Attacking, { "attack": $HitBoxes/Attack1 })
+		State.Jumping:
+			change_state(State.Attacking, { "attack": $HitBoxes/AirAttack })
 		State.Attacking:
 			var next_attack = _current_attack().get_combo_attack()
 			if next_attack:
@@ -103,13 +143,13 @@ func _update_animation() -> void:
 	match state:
 		State.Attacking:
 			animated_sprite_3d.play(_current_attack().animation)
-		_:
+		State.Running:
+			animated_sprite_3d.play("walk")
+		State.Idle:
+			animated_sprite_3d.play("idle")
+		State.Jumping:
 			if velocity.y > 0:
 				if animated_sprite_3d.animation != "jump":
 					animated_sprite_3d.play("jump")
 			elif velocity.y < 0:
 				animated_sprite_3d.play("fall")
-			elif is_zero_approx(velocity.x) and is_zero_approx(velocity.z):
-				animated_sprite_3d.play("idle")
-			else:
-				animated_sprite_3d.play("walk")

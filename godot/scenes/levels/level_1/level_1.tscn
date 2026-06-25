@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bgpa8q2gaoipp" path="res://scenes/levels/level_1/follow_player_camera.gd" id="1_58uyj"]
 [ext_resource type="Script" uid="uid://dih2ehd6nvl67" path="res://scenes/game_elements/player/player.gd" id="1_spwf2"]
 [ext_resource type="Texture2D" uid="uid://coa12acpt5rmt" path="res://assets/2d/PNGExports/PNGExports/GroundCombo1.png" id="3_5d3u7"]
+[ext_resource type="Texture2D" uid="uid://bvlg8eve3fce" path="res://assets/2d/PNGExports/PNGExports/AirCombo1.png" id="3_41r28"]
 [ext_resource type="Texture2D" uid="uid://qou8pnq2stqb" path="res://assets/2d/PNGExports/PNGExports/GroundCombo2.png" id="4_41r28"]
 [ext_resource type="Texture2D" uid="uid://bvckwycme4h66" path="res://assets/2d/PNGExports/PNGExports/GroundCombo3.png" id="5_1iula"]
 [ext_resource type="Texture2D" uid="uid://kncie1v1sd85" path="res://assets/2d/PNGExports/PNGExports/JumpAndFall.png" id="6_v0dvh"]
@@ -23,6 +24,22 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_fngju"]
 height = 0.1646347
 radius = 0.07128906
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0dvh"]
+atlas = ExtResource("3_41r28")
+region = Rect2(0, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u4rjv"]
+atlas = ExtResource("3_41r28")
+region = Rect2(80, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ik8fb"]
+atlas = ExtResource("3_41r28")
+region = Rect2(160, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wpak"]
+atlas = ExtResource("3_41r28")
+region = Rect2(240, 0, 80, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1fq2y"]
 atlas = ExtResource("3_5d3u7")
@@ -114,6 +131,23 @@ region = Rect2(560, 0, 80, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jvpbq"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0dvh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u4rjv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ik8fb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wpak")
+}],
+"loop": false,
+"name": &"air_attack",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1fq2y")
@@ -478,9 +512,9 @@ offset = Vector2(-40, 0)
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_jvpbq")
-animation = &"attack_fast_2"
+animation = &"air_attack"
 autoplay = "walk"
-frame = 1
+frame = 2
 script = ExtResource("7_hhmec")
 render_priority_offset = 1
 all_animations_same_fps = true
@@ -498,12 +532,15 @@ font_size = 16
 
 [node name="Attack1" type="Node3D" parent="Player/HitBoxes" unique_id=1077805658 node_paths=PackedStringArray("next_combo_attack")]
 script = ExtResource("9_ldw0e")
+movement_speed_multiplier = 0.0
 animation = "attack_fast_1"
 collision_frame_begin = 1
-collision_frame_end = 2
+collision_frame_end = 3
 combo_window_frame_begin = 2
 combo_window_frame_end = 4
 next_combo_attack = NodePath("../Attack2")
+cancel_window_frame_begin = 2
+cancel_window_frame_end = 4
 
 [node name="Area3D" type="Area3D" parent="Player/HitBoxes/Attack1" unique_id=1596227655]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16749257, 0.16038635, 0)
@@ -516,12 +553,15 @@ shape = SubResource("BoxShape3D_wfdrs")
 
 [node name="Attack2" type="Node3D" parent="Player/HitBoxes" unique_id=844713317 node_paths=PackedStringArray("next_combo_attack")]
 script = ExtResource("9_ldw0e")
+movement_speed_multiplier = 0.0
 animation = "attack_fast_2"
 collision_frame_begin = 1
 collision_frame_end = 3
 combo_window_frame_begin = 2
 combo_window_frame_end = 5
 next_combo_attack = NodePath("../Attack3")
+cancel_window_frame_begin = 2
+cancel_window_frame_end = 5
 
 [node name="Area3D" type="Area3D" parent="Player/HitBoxes/Attack2" unique_id=1682188118]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16749257, 0.16038635, 0)
@@ -532,13 +572,17 @@ collision_mask = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0007561147, 0.016967773, 0)
 shape = SubResource("BoxShape3D_8spg0")
 
-[node name="Attack3" type="Node3D" parent="Player/HitBoxes" unique_id=1251139660]
+[node name="Attack3" type="Node3D" parent="Player/HitBoxes" unique_id=1251139660 node_paths=PackedStringArray("next_combo_attack")]
 script = ExtResource("9_ldw0e")
+movement_speed_multiplier = 0.0
 animation = "attack_fast_3"
 collision_frame_begin = 2
 collision_frame_end = 4
-combo_window_frame_begin = 5
-combo_window_frame_end = 5
+combo_window_frame_begin = 3
+combo_window_frame_end = 6
+next_combo_attack = NodePath("../Attack1")
+cancel_window_frame_begin = 3
+cancel_window_frame_end = 6
 
 [node name="Area3D" type="Area3D" parent="Player/HitBoxes/Attack3" unique_id=24023667]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16749257, 0.16038635, 0)
@@ -546,6 +590,27 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player/HitBoxes/Attack3/Area3D" unique_id=1346034850]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.034339108, 0.0042419434, 0.0054748356)
+shape = SubResource("BoxShape3D_5d3u7")
+
+[node name="AirAttack" type="Node3D" parent="Player/HitBoxes" unique_id=202754538 node_paths=PackedStringArray("next_combo_attack")]
+script = ExtResource("9_ldw0e")
+is_air = true
+animation = "air_attack"
+collision_frame_begin = 1
+collision_frame_end = 4
+combo_window_frame_begin = 2
+combo_window_frame_end = 4
+next_combo_attack = NodePath("../Attack3")
+cancel_window_frame_begin = 2
+cancel_window_frame_end = 4
+
+[node name="Area3D" type="Area3D" parent="Player/HitBoxes/AirAttack" unique_id=1564854111]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16749257, 0.16038635, 0)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/HitBoxes/AirAttack/Area3D" unique_id=728659996]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.034339108, 0.0042419434, 0.0054748356)
 shape = SubResource("BoxShape3D_5d3u7")
 
