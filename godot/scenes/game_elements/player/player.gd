@@ -26,7 +26,7 @@ var _state_data: Dictionary = {}
 func _current_attack() -> Attack:
 	match state:
 		State.Attacking:
-			return state_data()["attack"]
+			return (state_data()["attack"] as Attack)
 	return null
 
 func change_state(new_state: State, new_state_data: Dictionary = {}):

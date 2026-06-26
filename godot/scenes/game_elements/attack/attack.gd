@@ -21,7 +21,7 @@ var collision_time_left: float = 0.0
 @export_storage var cancel_window_frame_end: int = 0
 
 func _extend_inspector_property(
-	inspector: ExtendableInspector,
+	inspector,
 	_type: int,
 	property_name: String,
 	_hint_type: int,
