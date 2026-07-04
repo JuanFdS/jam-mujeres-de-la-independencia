@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://b7y5iy83w0sqf" path="res://scenes/game_elements/enemy_1/enemy_1.gd" id="7_ojo11"]
 [ext_resource type="Texture2D" uid="uid://cdrj4j03omwqd" path="res://assets/2d/Streets of Fight files(1)/Streets of Fight files/Assets/Spritesheets/Enemy Punk/hurt.png" id="8_1jeig"]
 [ext_resource type="Texture2D" uid="uid://ctc4cmk7hx6wq" path="res://assets/2d/Streets of Fight files(1)/Streets of Fight files/Assets/Spritesheets/Enemy Punk/punch.png" id="8_31rk5"]
+[ext_resource type="Texture2D" uid="uid://k7vj4hkv082j" path="res://assets/2d/PNGExports/PNGExports/TakeHit.png" id="8_41r28"]
 [ext_resource type="Texture2D" uid="uid://cycc7mosftdpo" path="res://assets/3d/kenney_prototype-textures/PNG/Orange/texture_10.png" id="8_58uyj"]
 [ext_resource type="Texture2D" uid="uid://2jvmx43uqjie" path="res://assets/2d/Streets of Fight files(1)/Streets of Fight files/Assets/Spritesheets/Enemy Punk/idle.png" id="8_w3g2g"]
 [ext_resource type="Script" uid="uid://bsb472gj70ykw" path="res://scenes/levels/level_1/debug.gd" id="8_wfdrs"]
@@ -92,6 +93,10 @@ region = Rect2(320, 0, 80, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_mjybv"]
 atlas = ExtResource("6_v0dvh")
 region = Rect2(80, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hhk8f"]
+atlas = ExtResource("8_41r28")
+region = Rect2(0, 0, 80, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h8art"]
 atlas = ExtResource("6_v0dvh")
@@ -218,6 +223,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_hhk8f")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 0.1
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("23_sw7nt")
 }],
 "loop": true,
@@ -270,6 +283,9 @@ size = Vector3(0.26820314, 0.20678711, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5d3u7"]
 size = Vector3(0.1980127, 0.20501709, 0.15872803)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v0dvh"]
+size = Vector3(0.30499268, 0.2753296, 0.1729126)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ynakb"]
 atlas = ExtResource("8_1jeig")
@@ -415,6 +431,12 @@ animations = [{
 height = 0.5
 radius = 0.15
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_41r28"]
+size = Vector3(0.48535156, 0.8635254, 0.12670898)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1iula"]
+size = Vector3(0.21438476, 0.4013672, 0.1)
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_58uyj"]
 sky_top_color = Color(0.6061404, 0.61387587, 0.6293334, 1)
 sky_horizon_color = Color(0.038534924, 0.44936085, 0.78553134, 1)
@@ -512,7 +534,7 @@ offset = Vector2(-40, 0)
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_jvpbq")
-animation = &"air_attack"
+animation = &"attack_fast_1"
 autoplay = "walk"
 frame = 2
 script = ExtResource("7_hhmec")
@@ -614,6 +636,15 @@ collision_mask = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.034339108, 0.0042419434, 0.0054748356)
 shape = SubResource("BoxShape3D_5d3u7")
 
+[node name="HurtBox" type="Area3D" parent="Player" unique_id=1760445463]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("15_rmnd1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/HurtBox" unique_id=917613254]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0012512207, 0.16690063, -0.01626587)
+shape = SubResource("BoxShape3D_v0dvh")
+
 [node name="Enemy" type="CharacterBody3D" parent="." unique_id=1338315346]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.74512565, 0, 0.21461171)
 collision_layer = 4
@@ -631,8 +662,10 @@ offset = Vector2(-48, 0)
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_ojo11")
-animation = &"hurt"
+animation = &"jab"
 autoplay = "walk"
+frame = 2
+frame_progress = 1.0
 script = ExtResource("7_hhmec")
 render_priority_offset = 0
 
@@ -652,6 +685,34 @@ script = ExtResource("15_rmnd1")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy/HurtBox" unique_id=868195144]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("CylinderShape3D_ldw0e")
+
+[node name="NearbyPlayerArea" type="Area3D" parent="Enemy" unique_id=384711395]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy/NearbyPlayerArea" unique_id=309061981]
+shape = SubResource("BoxShape3D_41r28")
+
+[node name="HitBoxes" type="Node3D" parent="Enemy" unique_id=1413856732]
+
+[node name="Attack1" type="Node3D" parent="Enemy/HitBoxes" unique_id=494057098 node_paths=PackedStringArray("next_combo_attack")]
+script = ExtResource("9_ldw0e")
+movement_speed_multiplier = 0.0
+animation = "jab"
+collision_frame_begin = 2
+collision_frame_end = 3
+combo_window_frame_begin = 2
+combo_window_frame_end = 4
+next_combo_attack = NodePath("../../../Player/HitBoxes/Attack2")
+
+[node name="Area3D" type="Area3D" parent="Enemy/HitBoxes/Attack1" unique_id=2007434971]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16746724, 0.2112073, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy/HitBoxes/Attack1/Area3D" unique_id=988030421]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.026153088, -0.003540039, 0)
+shape = SubResource("BoxShape3D_1iula")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=11440428]
 environment = SubResource("Environment_fngju")

@@ -4,6 +4,7 @@ extends CharacterBody3D
 const SPEED = 0.8
 const JUMP_VELOCITY = 2.0
 @onready var animated_sprite_3d: AnimatedSprite3D = $AnimatedSprite3D
+const STUN_TIME = 0.25
 
 var facing_direction: FacingDirection = FacingDirection.Right
 
@@ -50,7 +51,7 @@ func enter_state():
 
 func _ready() -> void:
 	add_to_group("player")
-	$Debug.watch("Current Attack: ", self._current_attack)
+	$Debug.watch("State", func(): return State.keys()[state])
 	animated_sprite_3d.animation_finished.connect(on_animation_finished)
 
 func on_animation_finished():
@@ -59,13 +60,19 @@ func on_animation_finished():
 			if animated_sprite_3d.animation == _current_attack().animation:
 				change_state(State.Idle)
 
-
 func _physics_process(delta: float) -> void:
+	match state:
+		State.Hurting:
+			state_data()["stun_time_left"] -= delta
+			if state_data()["stun_time_left"] < 0:
+				change_state(State.Idle)
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 		
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		match state:
+			State.Hurting:
+				pass
 			State.Attacking:
 				if _current_attack().is_cancellable():
 					change_state(State.Jumping)
@@ -78,6 +85,9 @@ func _physics_process(delta: float) -> void:
 	var movement := (transform.basis * Vector3(input_dir.x, 0, input_dir.y))
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	match state:
+		State.Hurting:
+			direction = Vector3.ZERO
+			movement = Vector3.ZERO
 		State.Attacking:
 			if _current_attack().is_cancellable() and (facing_direction * direction.x < 0):
 				change_state(State.Running)
@@ -103,6 +113,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	update_state_based_on_movement()
 	_update_animation()
+
+func hit(attack):
+	change_state(State.Hurting, { "stun_time_left": STUN_TIME })
 
 func update_state_based_on_movement():
 	if not is_on_floor():
@@ -130,6 +143,8 @@ func update_state_based_on_movement():
 
 func try_fast_attack():
 	match state:
+		State.Hurting:
+			pass
 		State.Idle, State.Running:
 			change_state(State.Attacking, { "attack": $HitBoxes/Attack1 })
 		State.Jumping:
@@ -141,6 +156,8 @@ func try_fast_attack():
 
 func _update_animation() -> void:
 	match state:
+		State.Hurting:
+			animated_sprite_3d.play("hurt")
 		State.Attacking:
 			animated_sprite_3d.play(_current_attack().animation)
 		State.Running:

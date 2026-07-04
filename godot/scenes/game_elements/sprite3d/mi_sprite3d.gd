@@ -40,7 +40,7 @@ func _ready() -> void:
 	alpha_cut = SpriteBase3D.ALPHA_CUT_DISABLED
 	cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	_create_shadow()
-	$"../Debug".watch("render priority", func(): return render_priority)
+	#$"../Debug".watch("render priority", func(): return render_priority)
 	set_process(true)
 
 func _process(_delta: float) -> void:
