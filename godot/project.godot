@@ -119,6 +119,7 @@ locale/translations=PackedStringArray("res://i18n/translation.de.translation", "
 3d_physics/layer_1="terrain"
 3d_physics/layer_2="player"
 3d_physics/layer_3="enemy"
+3d_physics/layer_4="block_player_only"
 
 [physics]
 

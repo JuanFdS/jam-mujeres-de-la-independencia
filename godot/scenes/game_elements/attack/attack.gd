@@ -2,6 +2,7 @@
 class_name Attack
 extends Node3D
 
+@export var knockback: float = 0.5
 @export var is_air: bool = false
 @export var movement_speed_multiplier: float = 1.0
 @onready var area_3d: Area3D = $Area3D
@@ -101,14 +102,16 @@ func _process(delta: float) -> void:
 			_toggle_collision(false)
 
 func on_area_entered(area_hit):
-	area_hit.hit(Hit.new(power, attacker.global_position, attacker.facing_direction))
+	area_hit.hit(Hit.new(power, attacker.global_position, attacker.facing_direction, knockback))
 
 class Hit:
 	var power: float
 	var global_position: Vector3
 	var direction: Player.FacingDirection = Player.FacingDirection.Left
+	var knockback: float
 	
-	func _init(_power, _global_position, _direction):
+	func _init(_power, _global_position, _direction, _knockback):
 		power = _power
 		global_position = _global_position
 		direction = _direction
+		knockback = _knockback

@@ -15,9 +15,7 @@
 [ext_resource type="Script" uid="uid://bg5uya64avtsn" path="res://scenes/game_elements/attack/attack.gd" id="9_ldw0e"]
 [ext_resource type="Script" uid="uid://ba0vff8eej3s5" path="res://scenes/game_elements/player/spots_for_enemies.gd" id="15_1iula"]
 [ext_resource type="Script" uid="uid://bly41ce6nmjfm" path="res://scenes/game_elements/hurt_box.gd" id="15_rmnd1"]
-[ext_resource type="Script" uid="uid://lm2xhsocbfhm" path="res://scenes/levels/level_1/stop_area.gd" id="19_8spg0"]
-[ext_resource type="Script" uid="uid://d2ju0e6qkgx3b" path="res://scenes/levels/level_1/combat.gd" id="20_5d3u7"]
-[ext_resource type="Script" uid="uid://bsv6oxp3qkhax" path="res://scenes/only_in_editor.gd" id="20_41r28"]
+[ext_resource type="PackedScene" uid="uid://dh702s8odk4e6" path="res://scenes/game_elements/enemy_1/enemy.tscn" id="16_wloe5"]
 [ext_resource type="Texture2D" uid="uid://cea3abh5okeq8" path="res://assets/2d/PNGExports/PNGExports/Idle.png" id="23_sw7nt"]
 [ext_resource type="Texture2D" uid="uid://dqplxnbsv37r" path="res://assets/2d/PNGExports/PNGExports/Run.png" id="28_u4rjv"]
 
@@ -286,20 +284,6 @@ size = Vector3(0.1980127, 0.20501709, 0.15872803)
 [sub_resource type="BoxShape3D" id="BoxShape3D_v0dvh"]
 size = Vector3(0.30499268, 0.2753296, 0.1729126)
 
-[sub_resource type="Gradient" id="Gradient_wloe5"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(1, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_8spg0"]
-gradient = SubResource("Gradient_wloe5")
-
-[sub_resource type="Gradient" id="Gradient_8spg0"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(0, 1, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_5d3u7"]
-gradient = SubResource("Gradient_8spg0")
-
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_58uyj"]
 sky_top_color = Color(0.6061404, 0.61387587, 0.6293334, 1)
 sky_horizon_color = Color(0.038534924, 0.44936085, 0.78553134, 1)
@@ -367,37 +351,23 @@ _data = {
 &"fade_in": SubResource("Animation_ldw0e")
 }
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_wloe5"]
-size = Vector3(0.20599365, 0.6201172, 1.3221893)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_41r28"]
-size = Vector3(0.13879395, 1.6456299, 1.5839844)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8spg0"]
-albedo_color = Color(0, 1, 0, 1)
-
 [node name="Level1" type="Node3D" unique_id=759788000]
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1594278636 node_paths=PackedStringArray("player")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 0.9063077, 0.42261824, 0, -0.42261824, 0.9063077, -3.9665866, 47.210102, 100.1977)
+transform = Transform3D(1, 0, 0, 0, 0.9063077, 0.42261824, 0, -0.42261824, 0.9063077, 0, 47.210102, 100.1977)
 current = true
 fov = 1.0
 script = ExtResource("1_58uyj")
 player = NodePath("../Player")
 
-[node name="Pivot" type="Node3D" parent="Camera3D" unique_id=1926461553]
-transform = Transform3D(1, 0, 0, 0, 0.90630776, -0.4226183, 0, 0.4226183, 0.90630776, 1.2326689, 1.3405728, -107.29)
-
-[node name="SpotLight3D" type="OmniLight3D" parent="Camera3D/Pivot" unique_id=1999184490]
-transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0)
+[node name="SpotLight3D" type="OmniLight3D" parent="Camera3D" unique_id=1999184490]
+transform = Transform3D(1, 0, 0, 0, 0.9063079, -0.42261833, 0, 0.42261833, 0.9063079, 1.2326689, 1.3405716, -107.289986)
 shadow_enabled = true
 omni_attenuation = 0.0
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=1298747055]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.922549, 0, 0.215)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15254813, 0, 0.215)
 collision_layer = 2
-collision_mask = 9
 script = ExtResource("1_spwf2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=384453584]
@@ -411,9 +381,9 @@ offset = Vector2(-40, 0)
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_jvpbq")
-animation = &"attack_fast_2"
+animation = &"attack_fast_1"
 autoplay = "walk"
-frame = 4
+frame = 2
 script = ExtResource("7_hhmec")
 render_priority_offset = 1
 all_animations_same_fps = true
@@ -431,7 +401,6 @@ font_size = 16
 
 [node name="Attack1" type="Node3D" parent="Player/HitBoxes" unique_id=1077805658 node_paths=PackedStringArray("next_combo_attack")]
 script = ExtResource("9_ldw0e")
-knockback = 0.05
 movement_speed_multiplier = 0.0
 animation = "attack_fast_1"
 collision_frame_begin = 1
@@ -453,9 +422,7 @@ shape = SubResource("BoxShape3D_wfdrs")
 
 [node name="Attack2" type="Node3D" parent="Player/HitBoxes" unique_id=844713317 node_paths=PackedStringArray("next_combo_attack")]
 script = ExtResource("9_ldw0e")
-knockback = -0.05
 movement_speed_multiplier = 0.0
-power = 1.5
 animation = "attack_fast_2"
 collision_frame_begin = 1
 collision_frame_end = 3
@@ -476,9 +443,7 @@ shape = SubResource("BoxShape3D_8spg0")
 
 [node name="Attack3" type="Node3D" parent="Player/HitBoxes" unique_id=1251139660 node_paths=PackedStringArray("next_combo_attack")]
 script = ExtResource("9_ldw0e")
-knockback = 0.25
 movement_speed_multiplier = 0.0
-power = 3.0
 animation = "attack_fast_3"
 collision_frame_begin = 2
 collision_frame_end = 4
@@ -499,9 +464,7 @@ shape = SubResource("BoxShape3D_5d3u7")
 
 [node name="AirAttack" type="Node3D" parent="Player/HitBoxes" unique_id=202754538 node_paths=PackedStringArray("next_combo_attack")]
 script = ExtResource("9_ldw0e")
-knockback = 0.1
 is_air = true
-power = 0.75
 animation = "air_attack"
 collision_frame_begin = 1
 collision_frame_end = 4
@@ -544,28 +507,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20819774, 0, -0.04187095)
 [node name="4" type="Marker3D" parent="Player/SpotsForEnemies" unique_id=1903901644]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20069456, 0, 0.031100452)
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="Player" unique_id=1185851227]
+[node name="Enemy" parent="." unique_id=94818539 instance=ExtResource("16_wloe5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.74512565, 0, 0.21461171)
 
-[node name="HUD" type="Control" parent="Player/CanvasLayer2" unique_id=698313846]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Enemy2" parent="." unique_id=1556860100 instance=ExtResource("16_wloe5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8367454, 0, -0.14989418)
 
-[node name="HealthBar" type="TextureProgressBar" parent="Player/CanvasLayer2" unique_id=2145264056]
-unique_name_in_owner = true
-offset_left = 40.0
-offset_top = 45.0
-offset_right = 254.0
-offset_bottom = 82.0
-value = 50.0
-nine_patch_stretch = true
-texture_under = SubResource("GradientTexture2D_8spg0")
-texture_progress = SubResource("GradientTexture2D_5d3u7")
+[node name="Enemy3" parent="." unique_id=27163457 instance=ExtResource("16_wloe5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33778512, -1.1920929e-07, -0.2837307)
 
-[node name="Enemies" type="Node3D" parent="." unique_id=1878103673]
+[node name="Enemy4" parent="." unique_id=742146367 instance=ExtResource("16_wloe5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7881173, -1.1920929e-07, 0.3072247)
+
+[node name="Enemy5" parent="." unique_id=232669665 instance=ExtResource("16_wloe5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3100033, -1.1920929e-07, -0.38425583)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=11440428]
 environment = SubResource("Environment_fngju")
@@ -574,22 +529,9 @@ environment = SubResource("Environment_fngju")
 
 [node name="Floor" type="CSGBox3D" parent="Terrain" unique_id=1133942816]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.90301514, -0.5202278, 0.09609985)
-material_overlay = SubResource("StandardMaterial3D_fngju")
 use_collision = true
 size = Vector3(13.623901, 1, 1.1921997)
 material = SubResource("StandardMaterial3D_fngju")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Terrain/Floor" unique_id=1447696046]
-transform = Transform3D(0.9758939, -0.21824545, 0, 0.21824545, 0.9758939, 0, 0, 0, 1, 0.14755422, 0.051507533, 0.009857178)
-size = Vector3(1.5444336, 1, 1.1543579)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="Terrain/Floor" unique_id=1636404507]
-transform = Transform3D(0.97591674, 0.21814324, 0, -0.21814324, 0.97591674, 0, 0, 0, 1, 2.976359, 0.076827675, 0.009857178)
-size = Vector3(1.5444336, 1, 1.1543579)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Terrain/Floor" unique_id=1585650190]
-transform = Transform3D(0.9998483, -0.01741749, 0, 0.01741749, 0.9998483, 0, 0, 0, 1, 1.5636196, 0.21693993, 0.009857178)
-size = Vector3(1.5444336, 1, 1.1543579)
 
 [node name="Wall" type="CSGBox3D" parent="Terrain" unique_id=539790119]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.849102, 0.08919525, -0.58012)
@@ -597,11 +539,17 @@ use_collision = true
 size = Vector3(13.624519, 0.99770355, 0.2055664)
 material = SubResource("StandardMaterial3D_5o1mp")
 
-[node name="Wall2" type="CSGBox3D" parent="Terrain" unique_id=784722715]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.133466, 0.08919525, 0.16402614)
+[node name="CSGBox3D" type="CSGBox3D" parent="Terrain" unique_id=1665947879]
+transform = Transform3D(0.96091455, -0.2768451, 0, 0.2768451, 0.96091455, 0, 0, 0, 1, 0.85854936, -0.39398885, -0.2607422)
 use_collision = true
-size = Vector3(3.224001, 0.99770355, 1.2736816)
-material = SubResource("StandardMaterial3D_5o1mp")
+size = Vector3(1, 1, 0.47851563)
+material = SubResource("StandardMaterial3D_fngju")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Terrain" unique_id=1877146868]
+transform = Transform3D(0.9999976, 0.0021991134, 0, -0.0021991134, 0.9999976, 0, 0, 0, 1, 2.0227177, -0.39398885, 0.26109397)
+use_collision = true
+size = Vector3(1, 1, 0.47851563)
+material = SubResource("StandardMaterial3D_fngju")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Terrain" unique_id=1515874670]
 
@@ -610,7 +558,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7118597)
 shape = SubResource("WorldBoundaryShape3D_spwf2")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1841600500]
-layer = 2
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1824054968]
 anchors_preset = 15
@@ -623,115 +570,3 @@ color = Color(0, 0, 0, 1)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer" unique_id=1708202217]
 libraries/ = SubResource("AnimationLibrary_rmnd1")
 autoplay = &"fade_in"
-
-[node name="StopArea" type="Area3D" parent="." unique_id=2134505967]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0479139, -0.02022779, 0.067430854)
-collision_layer = 0
-collision_mask = 2
-script = ExtResource("19_8spg0")
-
-[node name="Debug" type="Node3D" parent="StopArea" unique_id=1829419719]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16372943, 0)
-visible = false
-script = ExtResource("8_wfdrs")
-
-[node name="Label3D" type="Label3D" parent="StopArea/Debug" unique_id=1482627535]
-text = "Health: 100"
-font_size = 16
-
-[node name="Combat" type="Node3D" parent="StopArea" unique_id=1537924065]
-script = ExtResource("20_5d3u7")
-
-[node name="Node3D" type="Node3D" parent="StopArea/Combat" unique_id=1221794505]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.191121, 0.35672575, -0.3561312)
-
-[node name="Node3D2" type="Node3D" parent="StopArea/Combat" unique_id=924136723]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.119663, 0.48490644, 0.33951962)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StopArea" unique_id=1432754048]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.016204834, 0.1899414, -0.08074188)
-shape = SubResource("BoxShape3D_wloe5")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="StopArea" unique_id=776701240]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.734646, 0, 0)
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StopArea/StaticBody3D" unique_id=1179356500]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08062744, 0.32281494, -0.054986954)
-shape = SubResource("BoxShape3D_41r28")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="StopArea/StaticBody3D" unique_id=1825742962]
-size = Vector3(0.13879395, 1.6456299, 1.5839844)
-material = SubResource("StandardMaterial3D_8spg0")
-script = ExtResource("20_41r28")
-
-[node name="StaticBody3D2" type="StaticBody3D" parent="StopArea" unique_id=2067733035]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5596844, 0, 0)
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StopArea/StaticBody3D2" unique_id=852251404]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08062744, 0.32281494, -0.054986954)
-shape = SubResource("BoxShape3D_41r28")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="StopArea/StaticBody3D2" unique_id=687400554]
-size = Vector3(0.13879395, 1.6456299, 1.5839844)
-material = SubResource("StandardMaterial3D_8spg0")
-script = ExtResource("20_41r28")
-
-[node name="StopArea2" type="Area3D" parent="." unique_id=1822376022]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3591008, -0.02022779, 0.067430854)
-collision_layer = 0
-collision_mask = 2
-script = ExtResource("19_8spg0")
-
-[node name="Debug" type="Node3D" parent="StopArea2" unique_id=72716011]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16372943, 0)
-visible = false
-script = ExtResource("8_wfdrs")
-
-[node name="Label3D" type="Label3D" parent="StopArea2/Debug" unique_id=283169569]
-text = "Health: 100"
-font_size = 16
-
-[node name="Combat" type="Node3D" parent="StopArea2" unique_id=261794542]
-script = ExtResource("20_5d3u7")
-
-[node name="Node3D" type="Node3D" parent="StopArea2/Combat" unique_id=1387727702]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.353735, 0, -0.3561312)
-
-[node name="Node3D2" type="Node3D" parent="StopArea2/Combat" unique_id=2128765060]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.119663, 0, 0.33951962)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StopArea2" unique_id=1316310834]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.016204834, 0.1899414, -0.08074188)
-shape = SubResource("BoxShape3D_wloe5")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="StopArea2" unique_id=1010068760]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.734646, 0, 0)
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StopArea2/StaticBody3D" unique_id=704411235]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08062744, 0.32281494, -0.054986954)
-shape = SubResource("BoxShape3D_41r28")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="StopArea2/StaticBody3D" unique_id=611045389]
-size = Vector3(0.13879395, 1.6456299, 1.5839844)
-material = SubResource("StandardMaterial3D_8spg0")
-script = ExtResource("20_41r28")
-
-[node name="StaticBody3D2" type="StaticBody3D" parent="StopArea2" unique_id=1406463062]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5596844, 0, 0)
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StopArea2/StaticBody3D2" unique_id=1795727708]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08062744, 0.32281494, -0.054986954)
-shape = SubResource("BoxShape3D_41r28")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="StopArea2/StaticBody3D2" unique_id=1978925582]
-size = Vector3(0.13879395, 1.6456299, 1.5839844)
-material = SubResource("StandardMaterial3D_8spg0")
-script = ExtResource("20_41r28")

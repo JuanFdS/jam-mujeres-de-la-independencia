@@ -1,10 +1,16 @@
 class_name Player
 extends CharacterBody3D
 
-const SPEED = 0.8
+@export var vertical_speed = 1.5
+@export var horizontal_speed = 1.0
 const JUMP_VELOCITY = 2.0
 @onready var animated_sprite_3d: AnimatedSprite3D = $AnimatedSprite3D
 const STUN_TIME = 0.25
+@export var max_hp: float = 20
+@onready var hp: float = max_hp :
+	set(new_value):
+		hp = new_value
+		%HealthBar.value = hp
 
 var facing_direction: FacingDirection = FacingDirection.Right
 
@@ -23,6 +29,15 @@ enum State {
 
 var state: State = State.Idle
 var _state_data: Dictionary = {}
+
+func _ready() -> void:
+	add_to_group("player")
+	$Debug.watch("State", func(): return State.keys()[state])
+	$Debug.watch("V", func(): return velocity.x)
+	
+	animated_sprite_3d.animation_finished.connect(on_animation_finished)
+	%HealthBar.max_value = max_hp
+	%HealthBar.value = hp
 
 func _current_attack() -> Attack:
 	match state:
@@ -49,10 +64,7 @@ func enter_state():
 		State.Attacking:
 			_current_attack().start()
 
-func _ready() -> void:
-	add_to_group("player")
-	$Debug.watch("State", func(): return State.keys()[state])
-	animated_sprite_3d.animation_finished.connect(on_animation_finished)
+
 
 func on_animation_finished():
 	match state:
@@ -82,7 +94,7 @@ func _physics_process(delta: float) -> void:
 				velocity.y = JUMP_VELOCITY
 
 	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var movement := (transform.basis * Vector3(input_dir.x, 0, input_dir.y))
+	var movement := (transform.basis * Vector3(sign(input_dir.x), 0, sign(input_dir.y)))
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	match state:
 		State.Hurting:
@@ -99,11 +111,12 @@ func _physics_process(delta: float) -> void:
 		animated_sprite_3d.flip_h = direction.x < 0
 		facing_direction = FacingDirection.Left if direction.x < 0 else FacingDirection.Right
 	if movement:
-		velocity.x = movement.x * SPEED
-		velocity.z = movement.z * SPEED
+		velocity.x = movement.x * horizontal_speed
+		velocity.z = movement.z * vertical_speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, horizontal_speed)
+		velocity.z = move_toward(velocity.z, 0, vertical_speed)
+	
 
 	$HitBoxes.scale.x = facing_direction
 
@@ -114,7 +127,8 @@ func _physics_process(delta: float) -> void:
 	update_state_based_on_movement()
 	_update_animation()
 
-func hit(attack):
+func hit(attack: Attack.Hit):
+	hp -= attack.power
 	change_state(State.Hurting, { "stun_time_left": STUN_TIME })
 
 func update_state_based_on_movement():
