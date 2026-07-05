@@ -128,7 +128,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"jab",
-"speed": 10.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -192,8 +192,9 @@ offset = Vector2(-48, 0)
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_ojo11")
-animation = &"defeated"
+animation = &"jab"
 autoplay = "walk"
+frame_progress = 0.8282249
 script = ExtResource("6_cvbm0")
 render_priority_offset = 0
 

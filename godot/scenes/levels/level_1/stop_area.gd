@@ -17,8 +17,9 @@ func start():
 	started.emit()
 
 func finish():
-	camera_3d.follow_player()
-	toggle_collision(false)
+	camera_3d.stop_area_finished(self)
+	# la pared de la izquierda la dejamos asi no se puede volver para atras
+	$StaticBody3D2/CollisionShape3D.set_deferred("disabled", true)
 
 func toggle_collision(value: bool):
 	$StaticBody3D/CollisionShape3D.set_deferred("disabled", not value)

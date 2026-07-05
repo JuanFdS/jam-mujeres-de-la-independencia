@@ -1,6 +1,7 @@
 class_name Player
 extends CharacterBody3D
 
+@export var player_id: int = 1
 @export var vertical_speed = 1.5
 @export var horizontal_speed = 1.0
 const JUMP_VELOCITY = 2.0
@@ -81,7 +82,7 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 		
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("jump_%s" % player_id) and is_on_floor():
 		match state:
 			State.Hurting:
 				pass
@@ -93,7 +94,7 @@ func _physics_process(delta: float) -> void:
 				change_state(State.Jumping)
 				velocity.y = JUMP_VELOCITY
 
-	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var input_dir := Input.get_vector("left_%s" % player_id, "right_%s" % player_id, "up_%s" % player_id, "down_%s" % player_id)
 	var movement := (transform.basis * Vector3(sign(input_dir.x), 0, sign(input_dir.y)))
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	match state:
@@ -120,7 +121,7 @@ func _physics_process(delta: float) -> void:
 
 	$HitBoxes.scale.x = facing_direction
 
-	if Input.is_action_just_pressed("attack_fast"):
+	if Input.is_action_just_pressed("attack_%s" % player_id):
 		try_fast_attack()
 
 	move_and_slide()
