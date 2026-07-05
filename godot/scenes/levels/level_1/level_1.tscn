@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://dwsxcio3bies1"]
 
+[ext_resource type="Script" uid="uid://d0cuh0as5wc5j" path="res://scenes/game_elements/barrel/barrel.gd" id="1_1iula"]
 [ext_resource type="Script" uid="uid://bgpa8q2gaoipp" path="res://scenes/levels/level_1/follow_player_camera.gd" id="1_58uyj"]
 [ext_resource type="Script" uid="uid://dih2ehd6nvl67" path="res://scenes/game_elements/player/player.gd" id="1_spwf2"]
+[ext_resource type="PackedScene" uid="uid://ll0xifg1pa84" path="res://assets/3d/3d-lowpoly-models/barrel/barrel.fbx" id="3_1iula"]
 [ext_resource type="Texture2D" uid="uid://coa12acpt5rmt" path="res://assets/2d/PNGExports/PNGExports/GroundCombo1.png" id="3_5d3u7"]
 [ext_resource type="Texture2D" uid="uid://bvlg8eve3fce" path="res://assets/2d/PNGExports/PNGExports/AirCombo1.png" id="3_41r28"]
 [ext_resource type="Texture2D" uid="uid://qou8pnq2stqb" path="res://assets/2d/PNGExports/PNGExports/GroundCombo2.png" id="4_41r28"]
@@ -16,10 +18,17 @@
 [ext_resource type="Script" uid="uid://ba0vff8eej3s5" path="res://scenes/game_elements/player/spots_for_enemies.gd" id="15_1iula"]
 [ext_resource type="Script" uid="uid://bly41ce6nmjfm" path="res://scenes/game_elements/hurt_box.gd" id="15_rmnd1"]
 [ext_resource type="Script" uid="uid://lm2xhsocbfhm" path="res://scenes/levels/level_1/stop_area.gd" id="19_8spg0"]
+[ext_resource type="Texture2D" uid="uid://bmgfgujoniaaq" path="res://addons/awesome_input_icons/assets/input_icons/keyboard/x.svg" id="19_q7p11"]
+[ext_resource type="Script" uid="uid://konhgxcntcgi" path="res://addons/awesome_input_icons/classes/InputIconSprite2D.gd" id="19_v0dvh"]
 [ext_resource type="Script" uid="uid://d2ju0e6qkgx3b" path="res://scenes/levels/level_1/combat.gd" id="20_5d3u7"]
 [ext_resource type="Script" uid="uid://bsv6oxp3qkhax" path="res://scenes/only_in_editor.gd" id="20_41r28"]
+[ext_resource type="Texture2D" uid="uid://ufa566vqu8u4" path="res://addons/awesome_input_icons/assets/input_icons/keyboard/z.svg" id="21_q7p11"]
 [ext_resource type="Texture2D" uid="uid://cea3abh5okeq8" path="res://assets/2d/PNGExports/PNGExports/Idle.png" id="23_sw7nt"]
 [ext_resource type="Texture2D" uid="uid://dqplxnbsv37r" path="res://assets/2d/PNGExports/PNGExports/Run.png" id="28_u4rjv"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_41r28"]
+height = 0.42460632
+radius = 0.13134766
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_41r28"]
 size = Vector3(0.13879395, 1.6456299, 1.5839844)
@@ -306,6 +315,16 @@ colors = PackedColorArray(0, 1, 0, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_5d3u7"]
 gradient = SubResource("Gradient_8spg0")
 
+[sub_resource type="SystemFont" id="SystemFont_v0dvh"]
+font_names = PackedStringArray("Monospace")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1fq2y"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.8627451)
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_58uyj"]
 sky_top_color = Color(0.6061404, 0.61387587, 0.6293334, 1)
 sky_horizon_color = Color(0.038534924, 0.44936085, 0.78553134, 1)
@@ -381,6 +400,26 @@ size = Vector3(0.20599365, 0.6201172, 1.3221893)
 
 [node name="Level1" type="Node3D" unique_id=759788000]
 
+[node name="Barrel" type="RigidBody3D" parent="." unique_id=800811001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8053055, 2.0057836, 0.09876382)
+collision_layer = 0
+script = ExtResource("1_1iula")
+
+[node name="barrel" parent="Barrel" unique_id=1772342196 instance=ExtResource("3_1iula")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.18965472, -0.20928039)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrel" unique_id=619365266]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.16214806, 0.11739132, -0.024871826)
+shape = SubResource("CylinderShape3D_41r28")
+
+[node name="Area3D" type="Area3D" parent="Barrel" unique_id=1892622219]
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrel/Area3D" unique_id=1043202705]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.16214848, 0.11739135, -0.031318665)
+shape = SubResource("CylinderShape3D_41r28")
+
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1594278636 node_paths=PackedStringArray("player")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.9063077, 0.42261824, 0, -0.42261824, 0.9063077, -3.967, 47.21, 100.198)
@@ -412,7 +451,7 @@ material = SubResource("StandardMaterial3D_8spg0")
 script = ExtResource("20_41r28")
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=1298747055]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.922549, 0, 0.215)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.570659, 0.9876859, 0.21499905)
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_spwf2")
@@ -433,9 +472,9 @@ offset = Vector2(-40, 0)
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_jvpbq")
-animation = &"attack_fast_2"
+animation = &"attack_fast_3"
 autoplay = "walk"
-frame = 4
+frame = 3
 script = ExtResource("7_hhmec")
 render_priority_offset = 1
 all_animations_same_fps = true
@@ -453,7 +492,6 @@ font_size = 16
 
 [node name="Attack1" type="Node3D" parent="Player/HitBoxes" unique_id=1077805658 node_paths=PackedStringArray("next_combo_attack")]
 script = ExtResource("9_ldw0e")
-knockback = 0.05
 movement_speed_multiplier = 0.0
 animation = "attack_fast_1"
 collision_frame_begin = 1
@@ -475,7 +513,7 @@ shape = SubResource("BoxShape3D_wfdrs")
 
 [node name="Attack2" type="Node3D" parent="Player/HitBoxes" unique_id=844713317 node_paths=PackedStringArray("next_combo_attack")]
 script = ExtResource("9_ldw0e")
-knockback = -0.05
+knockback = -0.3
 movement_speed_multiplier = 0.0
 power = 1.5
 animation = "attack_fast_2"
@@ -498,7 +536,7 @@ shape = SubResource("BoxShape3D_8spg0")
 
 [node name="Attack3" type="Node3D" parent="Player/HitBoxes" unique_id=1251139660 node_paths=PackedStringArray("next_combo_attack")]
 script = ExtResource("9_ldw0e")
-knockback = 0.25
+knockback = 2.0
 movement_speed_multiplier = 0.0
 power = 3.0
 animation = "attack_fast_3"
@@ -586,6 +624,39 @@ value = 50.0
 nine_patch_stretch = true
 texture_under = SubResource("GradientTexture2D_8spg0")
 texture_progress = SubResource("GradientTexture2D_5d3u7")
+
+[node name="InputIconSprite2D" type="Sprite2D" parent="Player/CanvasLayer2" unique_id=421962912]
+position = Vector2(180, 515)
+texture = ExtResource("19_q7p11")
+script = ExtResource("19_v0dvh")
+action_name = &"jump_1"
+metadata/_custom_type_script = "uid://konhgxcntcgi"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Player/CanvasLayer2" unique_id=1575885573]
+offset_left = 141.0
+offset_top = 545.0
+offset_right = 219.0
+offset_bottom = 585.0
+theme_override_fonts/normal_font = SubResource("SystemFont_v0dvh")
+theme_override_styles/normal = SubResource("StyleBoxFlat_1fq2y")
+text = "Saltar"
+fit_content = true
+
+[node name="InputIconSprite2D2" type="Sprite2D" parent="Player/CanvasLayer2" unique_id=582052285]
+position = Vector2(93, 515)
+texture = ExtResource("21_q7p11")
+script = ExtResource("19_v0dvh")
+action_name = &"attack_1"
+metadata/_custom_type_script = "uid://konhgxcntcgi"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Player/CanvasLayer2" unique_id=404568813]
+offset_left = 50.0
+offset_top = 545.0
+offset_right = 134.0
+offset_bottom = 585.0
+theme_override_fonts/normal_font = SubResource("SystemFont_v0dvh")
+theme_override_styles/normal = SubResource("StyleBoxFlat_1fq2y")
+text = "Atacar"
 
 [node name="Enemies" type="Node3D" parent="." unique_id=1878103673]
 
@@ -784,12 +855,6 @@ font_size = 16
 
 [node name="Combat" type="Node3D" parent="StopArea3" unique_id=832040025]
 script = ExtResource("20_5d3u7")
-
-[node name="Node3D" type="Node3D" parent="StopArea3/Combat" unique_id=426845334]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.353735, 0.24666166, 0.3170519)
-
-[node name="Node3D2" type="Node3D" parent="StopArea3/Combat" unique_id=1628094822]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1196628, 0.23903543, -0.15451556)
 
 [node name="Node3D3" type="Node3D" parent="StopArea3/Combat" unique_id=607831555]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1515412, 0.5876641, 0.5272124)

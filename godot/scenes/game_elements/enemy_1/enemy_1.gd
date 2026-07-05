@@ -70,13 +70,12 @@ func enter_state():
 	match state:
 		State.KnockedDown, State.Defeated:
 			var attack = state_data().attack
-			var knockback = attack.knockback * 5.0
+			var knockback = attack.knockback
 			velocity.x = attack.direction * knockback
 		State.Hurting:
 			var attack = state_data().attack
 			var knockback = attack.knockback
-			velocity.x = attack.direction * knockback / get_physics_process_delta_time()
-			move_and_slide()
+			velocity.x = attack.direction * knockback
 		State.Following:
 			if state_data().has("closest_player") and state_data().has("spot"):
 				var previous_player = state_data()["closest_player"]
@@ -118,11 +117,9 @@ func update_velocity(delta):
 	if not is_on_floor():
 		velocity.y += get_gravity().y * delta
 	match state:
-		State.KnockedDown, State.Defeated:
+		State.KnockedDown, State.Defeated, State.Hurting:
 			velocity = velocity.move_toward(Vector3.ZERO, delta)
 		State.Attacking:
-			velocity = Vector3.ZERO
-		State.Hurting:
 			velocity = Vector3.ZERO
 		State.Idle:
 			velocity = Vector3.ZERO

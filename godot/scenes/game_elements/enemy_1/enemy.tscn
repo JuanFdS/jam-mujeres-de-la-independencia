@@ -194,7 +194,7 @@ texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_ojo11")
 animation = &"jab"
 autoplay = "walk"
-frame_progress = 0.8282249
+frame = 2
 script = ExtResource("6_cvbm0")
 render_priority_offset = 0
 
@@ -232,7 +232,9 @@ animation = "jab"
 collision_frame_begin = 2
 collision_frame_end = 3
 combo_window_frame_begin = 2
-combo_window_frame_end = 4
+combo_window_frame_end = 3
+cancel_window_frame_begin = 2
+cancel_window_frame_end = 3
 
 [node name="Area3D" type="Area3D" parent="HitBoxes/Attack1" unique_id=1543276083]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16746724, 0.2112073, 0)
