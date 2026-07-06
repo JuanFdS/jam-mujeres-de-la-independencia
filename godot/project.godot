@@ -142,6 +142,7 @@ locale/translations=PackedStringArray("res://i18n/translation.de.translation", "
 3d_physics/layer_3="enemy"
 3d_physics/layer_4="block_player_only"
 3d_physics/layer_5="floor_for_camera"
+3d_physics/layer_6="destructible"
 
 [physics]
 

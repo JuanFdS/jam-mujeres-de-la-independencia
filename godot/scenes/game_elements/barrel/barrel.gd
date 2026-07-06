@@ -7,3 +7,9 @@ func _ready() -> void:
 func on_area_entered(body):
 	body.hit(Attack.Hit.new(4, global_position, sign(linear_velocity.x), 1.0))
 	queue_free()
+
+func hit(attack_hit):
+	queue_free()
+
+func start():
+	freeze = false

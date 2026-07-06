@@ -24,11 +24,11 @@
 [ext_resource type="Script" uid="uid://bsv6oxp3qkhax" path="res://scenes/only_in_editor.gd" id="20_41r28"]
 [ext_resource type="Texture2D" uid="uid://ufa566vqu8u4" path="res://addons/awesome_input_icons/assets/input_icons/keyboard/z.svg" id="21_q7p11"]
 [ext_resource type="Texture2D" uid="uid://cea3abh5okeq8" path="res://assets/2d/PNGExports/PNGExports/Idle.png" id="23_sw7nt"]
+[ext_resource type="Script" uid="uid://caeskhje2d3sl" path="res://scenes/levels/level_1/falling_barrel.gd" id="25_28n4u"]
+[ext_resource type="Texture2D" uid="uid://nalmxmm5cahq" path="res://assets/2d/hazard-sign.png" id="26_vva6n"]
+[ext_resource type="Script" uid="uid://o75evnn04kyw" path="res://scenes/levels/level_1/warning_sign.gd" id="27_vm2d2"]
+[ext_resource type="Script" uid="uid://bqq36v2uf20u1" path="res://scenes/levels/level_1/actions_sequence.gd" id="28_hws8l"]
 [ext_resource type="Texture2D" uid="uid://dqplxnbsv37r" path="res://assets/2d/PNGExports/PNGExports/Run.png" id="28_u4rjv"]
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_41r28"]
-height = 0.42460632
-radius = 0.13134766
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_41r28"]
 size = Vector3(0.13879395, 1.6456299, 1.5839844)
@@ -299,7 +299,7 @@ size = Vector3(0.26820314, 0.20678711, 0.1)
 size = Vector3(0.1980127, 0.20501709, 0.15872803)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v0dvh"]
-size = Vector3(0.30499268, 0.2753296, 0.1729126)
+size = Vector3(0.30574036, 0.24491024, 0.34571838)
 
 [sub_resource type="Gradient" id="Gradient_wloe5"]
 offsets = PackedFloat32Array(1)
@@ -398,27 +398,53 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_wloe5"]
 size = Vector3(0.20599365, 0.6201172, 1.3221893)
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_41r28"]
+height = 0.42460632
+radius = 0.13134766
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_q7p11"]
+height = 0.44729614
+radius = 0.25048828
+
+[sub_resource type="Animation" id="Animation_vm2d2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_hws8l"]
+resource_name = "blink"
+length = 0.25
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_28n4u"]
+_data = {
+&"RESET": SubResource("Animation_vm2d2"),
+&"blink": SubResource("Animation_hws8l")
+}
+
 [node name="Level1" type="Node3D" unique_id=759788000]
-
-[node name="Barrel" type="RigidBody3D" parent="." unique_id=800811001]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8053055, 2.0057836, 0.09876382)
-collision_layer = 0
-script = ExtResource("1_1iula")
-
-[node name="barrel" parent="Barrel" unique_id=1772342196 instance=ExtResource("3_1iula")]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.18965472, -0.20928039)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrel" unique_id=619365266]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.16214806, 0.11739132, -0.024871826)
-shape = SubResource("CylinderShape3D_41r28")
-
-[node name="Area3D" type="Area3D" parent="Barrel" unique_id=1892622219]
-collision_layer = 0
-collision_mask = 6
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrel/Area3D" unique_id=1043202705]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.16214848, 0.11739135, -0.031318665)
-shape = SubResource("CylinderShape3D_41r28")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1594278636 node_paths=PackedStringArray("player")]
 unique_name_in_owner = true
@@ -451,9 +477,9 @@ material = SubResource("StandardMaterial3D_8spg0")
 script = ExtResource("20_41r28")
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=1298747055]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.570659, 0.9876859, 0.21499905)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.23284, 1.099181, 0.21499905)
 collision_layer = 2
-collision_mask = 9
+collision_mask = 41
 script = ExtResource("1_spwf2")
 
 [node name="RayCast3D" type="RayCast3D" parent="Player" unique_id=2044477788]
@@ -505,7 +531,7 @@ cancel_window_frame_end = 4
 [node name="Area3D" type="Area3D" parent="Player/HitBoxes/Attack1" unique_id=1596227655]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16749257, 0.16038635, 0)
 collision_layer = 0
-collision_mask = 4
+collision_mask = 36
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player/HitBoxes/Attack1/Area3D" unique_id=2000627174]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.026153073, -0.003540039, 0)
@@ -528,7 +554,7 @@ cancel_window_frame_end = 5
 [node name="Area3D" type="Area3D" parent="Player/HitBoxes/Attack2" unique_id=1682188118]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16749257, 0.16038635, 0)
 collision_layer = 0
-collision_mask = 4
+collision_mask = 36
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player/HitBoxes/Attack2/Area3D" unique_id=1278871857]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0007561147, 0.016967773, 0)
@@ -536,7 +562,7 @@ shape = SubResource("BoxShape3D_8spg0")
 
 [node name="Attack3" type="Node3D" parent="Player/HitBoxes" unique_id=1251139660 node_paths=PackedStringArray("next_combo_attack")]
 script = ExtResource("9_ldw0e")
-knockback = 2.0
+knockback = 1.0
 movement_speed_multiplier = 0.0
 power = 3.0
 animation = "attack_fast_3"
@@ -551,7 +577,7 @@ cancel_window_frame_end = 6
 [node name="Area3D" type="Area3D" parent="Player/HitBoxes/Attack3" unique_id=24023667]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16749257, 0.16038635, 0)
 collision_layer = 0
-collision_mask = 4
+collision_mask = 36
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player/HitBoxes/Attack3/Area3D" unique_id=1346034850]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.034339108, 0.0042419434, 0.0054748356)
@@ -574,7 +600,7 @@ cancel_window_frame_end = 4
 [node name="Area3D" type="Area3D" parent="Player/HitBoxes/AirAttack" unique_id=1564854111]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16749257, 0.16038635, 0)
 collision_layer = 0
-collision_mask = 4
+collision_mask = 36
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player/HitBoxes/AirAttack/Area3D" unique_id=728659996]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.034339108, 0.0042419434, 0.0054748356)
@@ -626,34 +652,34 @@ texture_under = SubResource("GradientTexture2D_8spg0")
 texture_progress = SubResource("GradientTexture2D_5d3u7")
 
 [node name="InputIconSprite2D" type="Sprite2D" parent="Player/CanvasLayer2" unique_id=421962912]
-position = Vector2(180, 515)
+position = Vector2(164, 129)
 texture = ExtResource("19_q7p11")
 script = ExtResource("19_v0dvh")
 action_name = &"jump_1"
 metadata/_custom_type_script = "uid://konhgxcntcgi"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Player/CanvasLayer2" unique_id=1575885573]
-offset_left = 141.0
-offset_top = 545.0
-offset_right = 219.0
-offset_bottom = 585.0
+offset_left = 125.0
+offset_top = 159.0
+offset_right = 203.0
+offset_bottom = 199.0
 theme_override_fonts/normal_font = SubResource("SystemFont_v0dvh")
 theme_override_styles/normal = SubResource("StyleBoxFlat_1fq2y")
 text = "Saltar"
 fit_content = true
 
 [node name="InputIconSprite2D2" type="Sprite2D" parent="Player/CanvasLayer2" unique_id=582052285]
-position = Vector2(93, 515)
+position = Vector2(77, 129)
 texture = ExtResource("21_q7p11")
 script = ExtResource("19_v0dvh")
 action_name = &"attack_1"
 metadata/_custom_type_script = "uid://konhgxcntcgi"
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="Player/CanvasLayer2" unique_id=404568813]
-offset_left = 50.0
-offset_top = 545.0
-offset_right = 134.0
-offset_bottom = 585.0
+offset_left = 34.0
+offset_top = 159.0
+offset_right = 118.0
+offset_bottom = 199.0
 theme_override_fonts/normal_font = SubResource("SystemFont_v0dvh")
 theme_override_styles/normal = SubResource("StyleBoxFlat_1fq2y")
 text = "Atacar"
@@ -844,6 +870,111 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("19_8spg0")
 
+[node name="ActionsSequence" type="Node3D" parent="StopArea3" unique_id=1088841723]
+script = ExtResource("28_hws8l")
+
+[node name="FallingBarrel" type="Node3D" parent="StopArea3/ActionsSequence" unique_id=462762634]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.996492, -1.2579964, -0.067430854)
+script = ExtResource("25_28n4u")
+
+[node name="Barrel" type="RigidBody3D" parent="StopArea3/ActionsSequence/FallingBarrel" unique_id=800811001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8053055, 2.0057836, -0.15261638)
+collision_layer = 32
+freeze = true
+script = ExtResource("1_1iula")
+
+[node name="barrel" parent="StopArea3/ActionsSequence/FallingBarrel/Barrel" unique_id=1772342196 instance=ExtResource("3_1iula")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.18965472, -0.20928039)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StopArea3/ActionsSequence/FallingBarrel/Barrel" unique_id=619365266]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.16214806, 0.11739132, -0.024871826)
+shape = SubResource("CylinderShape3D_41r28")
+
+[node name="Area3D" type="Area3D" parent="StopArea3/ActionsSequence/FallingBarrel/Barrel" unique_id=1892622219]
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StopArea3/ActionsSequence/FallingBarrel/Barrel/Area3D" unique_id=1043202705]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.16214848, 0.11739135, -0.031318665)
+shape = SubResource("CylinderShape3D_41r28")
+
+[node name="HurtBox" type="Area3D" parent="StopArea3/ActionsSequence/FallingBarrel/Barrel" unique_id=1900878489 node_paths=PackedStringArray("hittable")]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("15_rmnd1")
+hittable = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StopArea3/ActionsSequence/FallingBarrel/Barrel/HurtBox" unique_id=392850044]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.1619339, 0.13773966, 0.0041885376)
+shape = SubResource("CylinderShape3D_q7p11")
+
+[node name="Warning" type="Sprite3D" parent="StopArea3/ActionsSequence/FallingBarrel" unique_id=1476954987 node_paths=PackedStringArray("hazard")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 10.132725, 1.5239596, -0.63532495)
+modulate = Color(1, 0, 0, 1)
+billboard = 1
+texture = ExtResource("26_vva6n")
+script = ExtResource("27_vm2d2")
+hazard = NodePath("../Barrel")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StopArea3/ActionsSequence/FallingBarrel/Warning" unique_id=598381590]
+libraries/ = SubResource("AnimationLibrary_28n4u")
+
+[node name="FallingBarrel2" type="Node3D" parent="StopArea3/ActionsSequence" unique_id=304669747]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.996492, -1.2579964, -0.067430854)
+script = ExtResource("25_28n4u")
+
+[node name="Barrel" type="RigidBody3D" parent="StopArea3/ActionsSequence/FallingBarrel2" unique_id=739415430]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8053055, 2.0057836, 0.39451206)
+collision_layer = 32
+freeze = true
+script = ExtResource("1_1iula")
+
+[node name="barrel" parent="StopArea3/ActionsSequence/FallingBarrel2/Barrel" unique_id=695709160 instance=ExtResource("3_1iula")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.18965472, -0.20928039)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StopArea3/ActionsSequence/FallingBarrel2/Barrel" unique_id=1442138521]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.16214806, 0.11739132, -0.024871826)
+shape = SubResource("CylinderShape3D_41r28")
+
+[node name="Area3D" type="Area3D" parent="StopArea3/ActionsSequence/FallingBarrel2/Barrel" unique_id=2055420246]
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StopArea3/ActionsSequence/FallingBarrel2/Barrel/Area3D" unique_id=1111565222]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.16214848, 0.11739135, -0.031318665)
+shape = SubResource("CylinderShape3D_41r28")
+
+[node name="HurtBox" type="Area3D" parent="StopArea3/ActionsSequence/FallingBarrel2/Barrel" unique_id=51295157 node_paths=PackedStringArray("hittable")]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("15_rmnd1")
+hittable = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StopArea3/ActionsSequence/FallingBarrel2/Barrel/HurtBox" unique_id=491434219]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.1619339, 0.13773966, 0.0041885376)
+shape = SubResource("CylinderShape3D_q7p11")
+
+[node name="Warning" type="Sprite3D" parent="StopArea3/ActionsSequence/FallingBarrel2" unique_id=58025577 node_paths=PackedStringArray("hazard")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 10.132725, 1.5239596, -0.63532495)
+modulate = Color(1, 0, 0, 1)
+billboard = 1
+texture = ExtResource("26_vva6n")
+script = ExtResource("27_vm2d2")
+hazard = NodePath("../Barrel")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StopArea3/ActionsSequence/FallingBarrel2/Warning" unique_id=1275458092]
+libraries/ = SubResource("AnimationLibrary_28n4u")
+
+[node name="Combat" type="Node3D" parent="StopArea3/ActionsSequence" unique_id=832040025]
+script = ExtResource("20_5d3u7")
+start_on_stop_area_start = false
+
+[node name="Node3D3" type="Node3D" parent="StopArea3/ActionsSequence/Combat" unique_id=607831555]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1515412, 0.5876641, 0.5272124)
+
+[node name="Node3D4" type="Node3D" parent="StopArea3/ActionsSequence/Combat" unique_id=1333107592]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.385613, 0.5800379, 0.05564493)
+
 [node name="Debug" type="Node3D" parent="StopArea3" unique_id=170683313]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16372943, 0)
 visible = false
@@ -852,15 +983,6 @@ script = ExtResource("8_wfdrs")
 [node name="Label3D" type="Label3D" parent="StopArea3/Debug" unique_id=159114985]
 text = "Health: 100"
 font_size = 16
-
-[node name="Combat" type="Node3D" parent="StopArea3" unique_id=832040025]
-script = ExtResource("20_5d3u7")
-
-[node name="Node3D3" type="Node3D" parent="StopArea3/Combat" unique_id=607831555]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1515412, 0.5876641, 0.5272124)
-
-[node name="Node3D4" type="Node3D" parent="StopArea3/Combat" unique_id=1333107592]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.385613, 0.5800379, 0.05564493)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StopArea3" unique_id=1309716039]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.016204834, 0.1899414, -0.08074188)
