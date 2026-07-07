@@ -44,9 +44,9 @@ var _state_data = {}
 
 
 func _ready() -> void:
-	$Debug.watch("State", func(): return State.keys()[state] )
+	#$Debug.watch("State", func(): return State.keys()[state] )
 	#$Debug.watch("Changing state in...", func(): return "%.2f" % time_until_next_decision )
-	$Debug.watch("HP: ", func(): return hp )
+	#$Debug.watch("HP: ", func(): return hp )
 	animated_sprite_3d.animation_finished.connect(on_animation_finished)
 	var step = max_hp / (times_it_will_fall + 1)
 	for i in range(times_it_will_fall):

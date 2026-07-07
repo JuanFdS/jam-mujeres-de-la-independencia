@@ -9,11 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://qou8pnq2stqb" path="res://assets/2d/PNGExports/PNGExports/GroundCombo2.png" id="4_41r28"]
 [ext_resource type="Texture2D" uid="uid://bvckwycme4h66" path="res://assets/2d/PNGExports/PNGExports/GroundCombo3.png" id="5_1iula"]
 [ext_resource type="Texture2D" uid="uid://kncie1v1sd85" path="res://assets/2d/PNGExports/PNGExports/JumpAndFall.png" id="6_v0dvh"]
-[ext_resource type="Texture2D" uid="uid://bm722ir3v3to6" path="res://assets/3d/kenney_prototype-textures/PNG/Dark/texture_13.png" id="7_58uyj"]
 [ext_resource type="Script" uid="uid://cq7jvfwimffdw" path="res://scenes/game_elements/sprite3d/mi_sprite3d.gd" id="7_hhmec"]
 [ext_resource type="Texture2D" uid="uid://c8l7b5pe43cwe" path="res://assets/2d/PNGExports/PNGExports/Dash.png" id="8_1exhq"]
 [ext_resource type="Texture2D" uid="uid://k7vj4hkv082j" path="res://assets/2d/PNGExports/PNGExports/TakeHit.png" id="8_41r28"]
-[ext_resource type="Texture2D" uid="uid://cycc7mosftdpo" path="res://assets/3d/kenney_prototype-textures/PNG/Orange/texture_10.png" id="8_58uyj"]
 [ext_resource type="Script" uid="uid://bsb472gj70ykw" path="res://scenes/levels/level_1/debug.gd" id="8_wfdrs"]
 [ext_resource type="Script" uid="uid://bg5uya64avtsn" path="res://scenes/game_elements/attack/attack.gd" id="9_ldw0e"]
 [ext_resource type="Texture2D" uid="uid://fxmpwfsvaj7q" path="res://assets/2d/PNGExports/PNGExports/LungingStab.png" id="9_scqv6"]
@@ -26,8 +24,10 @@
 [ext_resource type="Script" uid="uid://bsv6oxp3qkhax" path="res://scenes/only_in_editor.gd" id="20_41r28"]
 [ext_resource type="Texture2D" uid="uid://ufa566vqu8u4" path="res://addons/awesome_input_icons/assets/input_icons/keyboard/z.svg" id="21_q7p11"]
 [ext_resource type="PackedScene" uid="uid://50fq0mv6tdgs" path="res://scenes/game_elements/enemy_1/enemy_rango.tscn" id="22_jvpbq"]
+[ext_resource type="Script" uid="uid://dqc6w8kptrrqv" path="res://scenes/levels/level_1/world_environment.gd" id="23_658j2"]
 [ext_resource type="Texture2D" uid="uid://cea3abh5okeq8" path="res://assets/2d/PNGExports/PNGExports/Idle.png" id="23_sw7nt"]
 [ext_resource type="Script" uid="uid://bvlslwxsr51t7" path="res://scenes/levels/level_1/gracias_por_jugar.gd" id="24_g76na"]
+[ext_resource type="Material" uid="uid://dxjl84or5fmpr" path="res://assets/ambient/Ground104_1K-PNG/Ground104_1K-PNG.tres" id="25_7nyn5"]
 [ext_resource type="Script" uid="uid://caeskhje2d3sl" path="res://scenes/levels/level_1/falling_barrel.gd" id="25_28n4u"]
 [ext_resource type="Script" uid="uid://uya14ih5ecg0" path="res://scenes/levels/level_1/spawn_point.gd" id="26_jvpbq"]
 [ext_resource type="Texture2D" uid="uid://nalmxmm5cahq" path="res://assets/2d/hazard-sign.png" id="26_vva6n"]
@@ -490,33 +490,17 @@ content_margin_right = 10.0
 content_margin_bottom = 10.0
 bg_color = Color(0, 0, 0, 0.8627451)
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_58uyj"]
-sky_top_color = Color(0.6061404, 0.61387587, 0.6293334, 1)
-sky_horizon_color = Color(0.038534924, 0.44936085, 0.78553134, 1)
-sky_curve = 0.45471448
-ground_horizon_color = Color(0.038534924, 0.44936085, 0.78553134, 1)
-ground_curve = 0.23425381
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7nyn5"]
 
-[sub_resource type="Sky" id="Sky_x3ahk"]
-sky_material = SubResource("ProceduralSkyMaterial_58uyj")
+[sub_resource type="Sky" id="Sky_dycye"]
+sky_material = SubResource("ProceduralSkyMaterial_7nyn5")
 
 [sub_resource type="Environment" id="Environment_fngju"]
 background_mode = 2
-sky = SubResource("Sky_x3ahk")
-sky_custom_fov = 163.6
+sky = SubResource("Sky_dycye")
+ambient_light_energy = 0.0
 tonemap_mode = 2
 glow_enabled = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fngju"]
-albedo_texture = ExtResource("7_58uyj")
-uv1_scale = Vector3(2, 2, 2)
-uv1_triplanar = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5o1mp"]
-albedo_texture = ExtResource("8_58uyj")
-albedo_texture_force_srgb = true
-uv1_scale = Vector3(3, 3, 3)
-uv1_triplanar = true
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_spwf2"]
 plane = Plane(0, 0, -1, 0)
@@ -897,35 +881,24 @@ fit_content = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=11440428]
 environment = SubResource("Environment_fngju")
+script = ExtResource("23_658j2")
 
 [node name="Terrain" type="Node3D" parent="." unique_id=600169945]
 
 [node name="Floor" type="CSGBox3D" parent="Terrain" unique_id=1133942816]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.119194, -0.5202278, 0.09609985)
-material_overlay = SubResource("StandardMaterial3D_fngju")
+material_overlay = ExtResource("25_7nyn5")
 use_collision = true
 collision_layer = 17
 size = Vector3(13.191544, 1, 1.1921997)
-material = SubResource("StandardMaterial3D_fngju")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Terrain/Floor" unique_id=1447696046]
 transform = Transform3D(0.9758939, -0.21824545, 0, 0.21824545, 0.9758939, 0, 0, 0, 1, 9.463372, 0.9142391, 0.009857178)
 size = Vector3(9.4505005, 1, 1.1543579)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Terrain/Floor" unique_id=1585650190]
-transform = Transform3D(0.9998483, -0.01741749, 0, 0.01741749, 0.9998483, 0, 0, 0, 1, 20.441513, 2.0161629, 0.009857178)
-size = Vector3(12.957642, 1, 1.1543579)
-
-[node name="Wall" type="CSGBox3D" parent="Terrain" unique_id=539790119]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.849102, 0.08919525, -0.58012)
-size = Vector3(13.624519, 0.99770355, 0.2055664)
-material = SubResource("StandardMaterial3D_5o1mp")
-
-[node name="Wall2" type="CSGBox3D" parent="Terrain" unique_id=784722715]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.133466, 0.08919525, 0.16402614)
-use_collision = true
-size = Vector3(3.224001, 0.99770355, 1.2736816)
-material = SubResource("StandardMaterial3D_5o1mp")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.441069, 1.9596097, 0.009857178)
+size = Vector3(12.957642, 0.88690186, 1.1543579)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Terrain" unique_id=1515874670]
 
