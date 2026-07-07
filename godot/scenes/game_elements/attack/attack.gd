@@ -2,6 +2,9 @@
 class_name Attack
 extends Node3D
 
+@export var attack_type: Player.AttackType
+@export var cancellable_on_enemy_hit: bool = false
+@export var comboable_on_enemy_hit: bool = false
 @export var knockback: float = 0.5
 @export var is_air: bool = false
 @export var movement_speed_multiplier: float = 1.0
@@ -20,6 +23,8 @@ var collision_time_left: float = 0.0
 
 @export_storage var cancel_window_frame_begin: int = 0
 @export_storage var cancel_window_frame_end: int = 0
+
+var enemies_hit: Array = []
 
 func _extend_inspector_property(
 	inspector,
@@ -77,18 +82,20 @@ func on_frame_changed():
 
 func get_combo_attack():
 	var sprite := _animated_sprite_3d()
-	var can_combo = sprite.animation == animation and sprite.frame in range(combo_window_frame_begin, combo_window_frame_end)
-	if can_combo:
+	var can_combo_due_to_animation = sprite.animation == animation and sprite.frame in range(combo_window_frame_begin, combo_window_frame_end)
+	var can_combo_due_to_enemy_hit = comboable_on_enemy_hit and not enemies_hit.is_empty()
+	if can_combo_due_to_animation or can_combo_due_to_enemy_hit:
 		return next_combo_attack
 	return null
 
 func is_cancellable():
 	var sprite := _animated_sprite_3d()
-	var can_cancel = sprite.animation == animation and sprite.frame in range(cancel_window_frame_begin, cancel_window_frame_end)
-	return can_cancel
+	var can_cancel_due_to_animation = sprite.animation == animation and sprite.frame in range(cancel_window_frame_begin, cancel_window_frame_end)
+	var can_cancel_due_to_enemy_hit = cancellable_on_enemy_hit and not enemies_hit.is_empty()
+	return can_cancel_due_to_animation or can_cancel_due_to_enemy_hit
 
 func start():
-	pass
+	enemies_hit = []
 
 func stop():
 	pass
@@ -102,6 +109,7 @@ func _process(delta: float) -> void:
 			_toggle_collision(false)
 
 func on_area_entered(area_hit):
+	enemies_hit.push_back(area_hit)
 	area_hit.hit(Hit.new(power, attacker.global_position, attacker.facing_direction, knockback))
 
 class Hit:

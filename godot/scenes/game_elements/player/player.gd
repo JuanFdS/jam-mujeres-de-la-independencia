@@ -5,6 +5,13 @@ extends CharacterBody3D
 @export var vertical_speed = 1.5
 @export var horizontal_speed = 1.0
 const JUMP_VELOCITY = 2.0
+@export var DASH_SPEED = 1.7
+@export var DASH_ATTACK_SPEED = 2.5
+@export var DASH_TIME: float = 0.5
+@export var AFTER_IMAGE_DASH_COOLDOWN: float = 0.1
+@export var AFTER_IMAGE_ATTACK_DASH_COOLDOWN: float = 0.02
+@export var time_until_next_after_image_dash: float = 0.0
+var dash_time_left: float = 0.0
 @onready var animated_sprite_3d: AnimatedSprite3D = $AnimatedSprite3D
 const STUN_TIME = 0.25
 @export var max_hp: float = 20
@@ -12,6 +19,8 @@ const STUN_TIME = 0.25
 	set(new_value):
 		hp = new_value
 		%HealthBar.value = hp
+@export var dash_cooldown: float = 0.3
+var time_until_next_cooldown: float = 0.0
 
 var facing_direction: FacingDirection = FacingDirection.Right
 
@@ -25,7 +34,14 @@ enum State {
 	Attacking,
 	Hurting,
 	Jumping,
-	Running
+	Running,
+	Dashing
+}
+
+enum AttackType {
+	Dash,
+	Air,
+	Ground
 }
 
 var state: State = State.Idle
@@ -33,8 +49,8 @@ var _state_data: Dictionary = {}
 
 func _ready() -> void:
 	add_to_group("player")
-	$Debug.watch("State", func(): return State.keys()[state])
-	$Debug.watch("V", func(): return velocity.x)
+	#$Debug.watch("State", func(): return State.keys()[state])
+	#$Debug.watch("V", func(): return velocity.x)
 	
 	animated_sprite_3d.animation_finished.connect(on_animation_finished)
 	%HealthBar.max_value = max_hp
@@ -59,10 +75,21 @@ func exit_state():
 	match state:
 		State.Attacking:
 			_current_attack().stop()
+		State.Dashing:
+			time_until_next_after_image_dash = 0.0
+			time_until_next_cooldown = dash_cooldown
 
 func enter_state():
 	match state:
+		State.Dashing:
+			dash_time_left = DASH_TIME
 		State.Attacking:
+			match _current_attack().attack_type:
+				AttackType.Dash:
+					var new_facing_direction = Input.get_axis("left_%s" % player_id, "right_%s" % player_id)
+					if new_facing_direction != 0:
+						facing_direction = new_facing_direction
+					velocity = Vector3.ZERO
 			_current_attack().start()
 
 
@@ -74,11 +101,28 @@ func on_animation_finished():
 				change_state(State.Idle)
 
 func _physics_process(delta: float) -> void:
+	time_until_next_cooldown -= delta
 	match state:
 		State.Hurting:
 			state_data()["stun_time_left"] -= delta
 			if state_data()["stun_time_left"] < 0:
 				change_state(State.Idle)
+		State.Attacking:
+			match _current_attack().attack_type:
+				AttackType.Dash:
+					time_until_next_after_image_dash -= delta
+					if time_until_next_after_image_dash < 0.0:
+						after_image()
+						time_until_next_after_image_dash = AFTER_IMAGE_ATTACK_DASH_COOLDOWN
+		State.Dashing:
+			time_until_next_after_image_dash -= delta
+			if time_until_next_after_image_dash < 0.0:
+				after_image()
+				time_until_next_after_image_dash = AFTER_IMAGE_DASH_COOLDOWN
+			dash_time_left -= delta
+			if dash_time_left < 0.0:
+				change_state(State.Idle)
+
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 		
@@ -98,6 +142,9 @@ func _physics_process(delta: float) -> void:
 	var movement := (transform.basis * Vector3(sign(input_dir.x), 0, sign(input_dir.y)))
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	match state:
+		State.Dashing:
+			direction = Vector3(facing_direction, 0, 0)
+			movement = direction * DASH_SPEED
 		State.Hurting:
 			direction = Vector3.ZERO
 			movement = Vector3.ZERO
@@ -106,7 +153,11 @@ func _physics_process(delta: float) -> void:
 				change_state(State.Running)
 			else:
 				direction = Vector3(facing_direction, 0, 0)
-				movement = state_data()["attack"].movement_speed_multiplier * movement
+				match _current_attack().attack_type:
+					AttackType.Dash:
+						movement = velocity.lerp(direction * DASH_ATTACK_SPEED, 1 - exp(-15 * delta))
+					_:
+						movement = _current_attack().movement_speed_multiplier * movement
 
 	if direction.x:
 		animated_sprite_3d.flip_h = direction.x < 0
@@ -123,12 +174,17 @@ func _physics_process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("attack_%s" % player_id):
 		try_fast_attack()
+	if Input.is_action_just_pressed("dash_%s" % player_id):
+		try_dash()
 
 	move_and_slide()
 	update_state_based_on_movement()
 	_update_animation()
 
 func hit(attack: Attack.Hit):
+	match state:
+		State.Dashing:
+			return
 	hp -= attack.power
 	change_state(State.Hurting, { "stun_time_left": STUN_TIME })
 
@@ -153,13 +209,30 @@ func update_state_based_on_movement():
 				if is_on_floor():
 					change_state(State.Idle)
 			State.Attacking:
-				if _current_attack().is_air and _current_attack().is_cancellable():
+				if _current_attack().attack_type == AttackType.Air and _current_attack().is_cancellable():
 					change_state(State.Idle)
+
+func try_dash():
+	if time_until_next_cooldown > 0.0:
+		return
+	match state:
+		State.Hurting:
+			pass
+		State.Idle, State.Running:
+			change_state(State.Dashing, { "dash_direction": facing_direction })
+		State.Attacking:
+			if _current_attack().is_cancellable():
+				if _current_attack().attack_type == AttackType.Air:
+					pass
+				else:
+					change_state(State.Dashing, { "dash_direction": facing_direction })
 
 func try_fast_attack():
 	match state:
 		State.Hurting:
 			pass
+		State.Dashing:
+			change_state(State.Attacking, { "attack": $HitBoxes/DashAttack })
 		State.Idle, State.Running:
 			change_state(State.Attacking, { "attack": $HitBoxes/Attack1 })
 		State.Jumping:
@@ -170,7 +243,15 @@ func try_fast_attack():
 				change_state(State.Attacking, { "attack": next_attack })
 
 func _update_animation() -> void:
+	if state == State.Dashing:
+		$AnimatedSprite3D.modulate.a = 0.5
+	else:
+		$AnimatedSprite3D.modulate.a = 1.0
+	
 	match state:
+		State.Dashing:
+			if animated_sprite_3d.animation != "dash":
+				animated_sprite_3d.play("dash")
 		State.Hurting:
 			animated_sprite_3d.play("hurt")
 		State.Attacking:
@@ -185,3 +266,34 @@ func _update_animation() -> void:
 					animated_sprite_3d.play("jump")
 			elif velocity.y < 0:
 				animated_sprite_3d.play("fall")
+				
+				
+func after_image():
+	var current_texture = $AnimatedSprite3D.sprite_frames.get_frame_texture($AnimatedSprite3D.animation, $AnimatedSprite3D.frame % $AnimatedSprite3D.sprite_frames.get_frame_count($AnimatedSprite3D.animation))
+	var after_image := Sprite3D.new()
+	after_image.centered = $AnimatedSprite3D.centered
+	after_image.offset = $AnimatedSprite3D.offset
+	after_image.billboard = $AnimatedSprite3D.billboard
+	after_image.texture_filter = $AnimatedSprite3D.texture_filter
+	# Set the texture and frame of the after_image
+	after_image.flip_h = $AnimatedSprite3D.flip_h
+	after_image.texture = current_texture
+	#after_image.frame = $Sprite2D.frame
+	## Calculate the frame size and coordinates
+	#var frame_size = current_texture.get_size() / Vector2($Sprite2D.hframes, $Sprite2D.vframes)
+	#var frame_coords = Vector2($Sprite2D.frame % $Sprite2D.hframes, $Sprite2D.frame / $Sprite2D.hframes) * frame_size
+	# Enable region and set the region rectangle
+	#after_image.region_enabled = true
+	#after_image.region_rect = Rect2(frame_coords, frame_size)
+	# Set global position and modulate alpha
+	#after_image.modulate.a = 0.5
+	# Add after_image as a child
+	add_child(after_image)
+	after_image.render_priority = $AnimatedSprite3D.render_priority - 1
+	
+	after_image.top_level = true
+	after_image.global_position = $AnimatedSprite3D.global_position
+	# Wait before removing the after_image
+	create_tween().tween_property(after_image, "modulate:a", 0.0, 0.5).from(0.8).set_trans(Tween.TRANS_CUBIC)
+	await get_tree().create_timer(0.5).timeout
+	after_image.queue_free()

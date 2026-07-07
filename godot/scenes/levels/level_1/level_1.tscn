@@ -11,10 +11,12 @@
 [ext_resource type="Texture2D" uid="uid://kncie1v1sd85" path="res://assets/2d/PNGExports/PNGExports/JumpAndFall.png" id="6_v0dvh"]
 [ext_resource type="Texture2D" uid="uid://bm722ir3v3to6" path="res://assets/3d/kenney_prototype-textures/PNG/Dark/texture_13.png" id="7_58uyj"]
 [ext_resource type="Script" uid="uid://cq7jvfwimffdw" path="res://scenes/game_elements/sprite3d/mi_sprite3d.gd" id="7_hhmec"]
+[ext_resource type="Texture2D" uid="uid://c8l7b5pe43cwe" path="res://assets/2d/PNGExports/PNGExports/Dash.png" id="8_1exhq"]
 [ext_resource type="Texture2D" uid="uid://k7vj4hkv082j" path="res://assets/2d/PNGExports/PNGExports/TakeHit.png" id="8_41r28"]
 [ext_resource type="Texture2D" uid="uid://cycc7mosftdpo" path="res://assets/3d/kenney_prototype-textures/PNG/Orange/texture_10.png" id="8_58uyj"]
 [ext_resource type="Script" uid="uid://bsb472gj70ykw" path="res://scenes/levels/level_1/debug.gd" id="8_wfdrs"]
 [ext_resource type="Script" uid="uid://bg5uya64avtsn" path="res://scenes/game_elements/attack/attack.gd" id="9_ldw0e"]
+[ext_resource type="Texture2D" uid="uid://fxmpwfsvaj7q" path="res://assets/2d/PNGExports/PNGExports/LungingStab.png" id="9_scqv6"]
 [ext_resource type="Script" uid="uid://ba0vff8eej3s5" path="res://scenes/game_elements/player/spots_for_enemies.gd" id="15_1iula"]
 [ext_resource type="Script" uid="uid://bly41ce6nmjfm" path="res://scenes/game_elements/hurt_box.gd" id="15_rmnd1"]
 [ext_resource type="Script" uid="uid://lm2xhsocbfhm" path="res://scenes/levels/level_1/stop_area.gd" id="19_8spg0"]
@@ -103,6 +105,90 @@ region = Rect2(240, 0, 80, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_r0bne"]
 atlas = ExtResource("5_1iula")
 region = Rect2(320, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scqv6"]
+atlas = ExtResource("8_1exhq")
+region = Rect2(0, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jvpbq"]
+atlas = ExtResource("8_1exhq")
+region = Rect2(80, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yivqu"]
+atlas = ExtResource("8_1exhq")
+region = Rect2(160, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g76na"]
+atlas = ExtResource("8_1exhq")
+region = Rect2(240, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_658j2"]
+atlas = ExtResource("8_1exhq")
+region = Rect2(320, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7nyn5"]
+atlas = ExtResource("8_1exhq")
+region = Rect2(400, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dycye"]
+atlas = ExtResource("9_scqv6")
+region = Rect2(0, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ynakb"]
+atlas = ExtResource("9_scqv6")
+region = Rect2(80, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hkh0g"]
+atlas = ExtResource("9_scqv6")
+region = Rect2(160, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jitr1"]
+atlas = ExtResource("9_scqv6")
+region = Rect2(240, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_er8tt"]
+atlas = ExtResource("9_scqv6")
+region = Rect2(320, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2e2u"]
+atlas = ExtResource("9_scqv6")
+region = Rect2(400, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rpu6q"]
+atlas = ExtResource("9_scqv6")
+region = Rect2(480, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h2ml8"]
+atlas = ExtResource("9_scqv6")
+region = Rect2(560, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7c7d"]
+atlas = ExtResource("9_scqv6")
+region = Rect2(640, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjq5k"]
+atlas = ExtResource("9_scqv6")
+region = Rect2(720, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1g7f6"]
+atlas = ExtResource("9_scqv6")
+region = Rect2(800, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_byhua"]
+atlas = ExtResource("9_scqv6")
+region = Rect2(880, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_46wco"]
+atlas = ExtResource("9_scqv6")
+region = Rect2(960, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sawah"]
+atlas = ExtResource("9_scqv6")
+region = Rect2(1040, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xnwe"]
+atlas = ExtResource("9_scqv6")
+region = Rect2(1120, 0, 80, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mjybv"]
 atlas = ExtResource("6_v0dvh")
@@ -229,6 +315,79 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_scqv6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jvpbq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yivqu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g76na")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_658j2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7nyn5")
+}],
+"loop": false,
+"name": &"dash",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dycye")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ynakb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hkh0g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jitr1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_er8tt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2e2u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rpu6q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h2ml8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7c7d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjq5k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1g7f6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_byhua")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46wco")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sawah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8xnwe")
+}],
+"loop": false,
+"name": &"dash_attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_mjybv")
 }],
 "loop": true,
@@ -297,6 +456,9 @@ size = Vector3(0.26820314, 0.20678711, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5d3u7"]
 size = Vector3(0.1980127, 0.20501709, 0.15872803)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1exhq"]
+size = Vector3(0.41248292, 0.27659607, 0.15872803)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v0dvh"]
 size = Vector3(0.30574036, 0.24491024, 0.34571838)
@@ -477,7 +639,7 @@ material = SubResource("StandardMaterial3D_8spg0")
 script = ExtResource("20_41r28")
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=1298747055]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.23284, 1.099181, 0.21499905)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5122612, -0.023715377, 0.21499905)
 collision_layer = 2
 collision_mask = 41
 script = ExtResource("1_spwf2")
@@ -498,9 +660,9 @@ offset = Vector2(-40, 0)
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_jvpbq")
-animation = &"attack_fast_3"
+animation = &"dash_attack"
 autoplay = "walk"
-frame = 3
+frame = 14
 script = ExtResource("7_hhmec")
 render_priority_offset = 1
 all_animations_same_fps = true
@@ -518,6 +680,7 @@ font_size = 16
 
 [node name="Attack1" type="Node3D" parent="Player/HitBoxes" unique_id=1077805658 node_paths=PackedStringArray("next_combo_attack")]
 script = ExtResource("9_ldw0e")
+attack_type = 2
 movement_speed_multiplier = 0.0
 animation = "attack_fast_1"
 collision_frame_begin = 1
@@ -539,6 +702,7 @@ shape = SubResource("BoxShape3D_wfdrs")
 
 [node name="Attack2" type="Node3D" parent="Player/HitBoxes" unique_id=844713317 node_paths=PackedStringArray("next_combo_attack")]
 script = ExtResource("9_ldw0e")
+attack_type = 2
 knockback = -0.3
 movement_speed_multiplier = 0.0
 power = 1.5
@@ -562,6 +726,7 @@ shape = SubResource("BoxShape3D_8spg0")
 
 [node name="Attack3" type="Node3D" parent="Player/HitBoxes" unique_id=1251139660 node_paths=PackedStringArray("next_combo_attack")]
 script = ExtResource("9_ldw0e")
+attack_type = 2
 knockback = 1.0
 movement_speed_multiplier = 0.0
 power = 3.0
@@ -585,6 +750,7 @@ shape = SubResource("BoxShape3D_5d3u7")
 
 [node name="AirAttack" type="Node3D" parent="Player/HitBoxes" unique_id=202754538 node_paths=PackedStringArray("next_combo_attack")]
 script = ExtResource("9_ldw0e")
+attack_type = 1
 knockback = 0.1
 is_air = true
 power = 0.75
@@ -605,6 +771,29 @@ collision_mask = 36
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player/HitBoxes/AirAttack/Area3D" unique_id=728659996]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.034339108, 0.0042419434, 0.0054748356)
 shape = SubResource("BoxShape3D_5d3u7")
+
+[node name="DashAttack" type="Node3D" parent="Player/HitBoxes" unique_id=70595229 node_paths=PackedStringArray("next_combo_attack")]
+script = ExtResource("9_ldw0e")
+cancellable_on_enemy_hit = true
+comboable_on_enemy_hit = true
+knockback = 1.0
+animation = "dash_attack"
+collision_frame_begin = 3
+collision_frame_end = 12
+combo_window_frame_begin = 15
+combo_window_frame_end = 15
+next_combo_attack = NodePath("../Attack1")
+cancel_window_frame_begin = 4
+cancel_window_frame_end = 15
+
+[node name="Area3D" type="Area3D" parent="Player/HitBoxes/DashAttack" unique_id=1907586630]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16749257, 0.16038635, 0)
+collision_layer = 0
+collision_mask = 36
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/HitBoxes/DashAttack/Area3D" unique_id=304230241]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14157438, 0.015846252, 0.0054748356)
+shape = SubResource("BoxShape3D_1exhq")
 
 [node name="HurtBox" type="Area3D" parent="Player" unique_id=1760445463]
 collision_layer = 2
@@ -683,6 +872,23 @@ offset_bottom = 199.0
 theme_override_fonts/normal_font = SubResource("SystemFont_v0dvh")
 theme_override_styles/normal = SubResource("StyleBoxFlat_1fq2y")
 text = "Atacar"
+
+[node name="InputIconSprite2D3" type="Sprite2D" parent="Player/CanvasLayer2" unique_id=55831161]
+position = Vector2(257, 129)
+texture = ExtResource("19_q7p11")
+script = ExtResource("19_v0dvh")
+action_name = &"dash_1"
+metadata/_custom_type_script = "uid://konhgxcntcgi"
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Player/CanvasLayer2" unique_id=998647309]
+offset_left = 209.0
+offset_top = 159.0
+offset_right = 307.0
+offset_bottom = 199.0
+theme_override_fonts/normal_font = SubResource("SystemFont_v0dvh")
+theme_override_styles/normal = SubResource("StyleBoxFlat_1fq2y")
+text = "Esquivar"
+fit_content = true
 
 [node name="Enemies" type="Node3D" parent="." unique_id=1878103673]
 
@@ -970,10 +1176,10 @@ script = ExtResource("20_5d3u7")
 start_on_stop_area_start = false
 
 [node name="Node3D3" type="Node3D" parent="StopArea3/ActionsSequence/Combat" unique_id=607831555]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1515412, 0.5876641, 0.5272124)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1515412, -0.68691635, 0.5272124)
 
 [node name="Node3D4" type="Node3D" parent="StopArea3/ActionsSequence/Combat" unique_id=1333107592]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.385613, 0.5800379, 0.05564493)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.385613, -0.7392633, 0.05564493)
 
 [node name="Debug" type="Node3D" parent="StopArea3" unique_id=170683313]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16372943, 0)
