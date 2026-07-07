@@ -25,8 +25,10 @@
 [ext_resource type="Script" uid="uid://d2ju0e6qkgx3b" path="res://scenes/levels/level_1/combat.gd" id="20_5d3u7"]
 [ext_resource type="Script" uid="uid://bsv6oxp3qkhax" path="res://scenes/only_in_editor.gd" id="20_41r28"]
 [ext_resource type="Texture2D" uid="uid://ufa566vqu8u4" path="res://addons/awesome_input_icons/assets/input_icons/keyboard/z.svg" id="21_q7p11"]
+[ext_resource type="PackedScene" uid="uid://50fq0mv6tdgs" path="res://scenes/game_elements/enemy_1/enemy_rango.tscn" id="22_jvpbq"]
 [ext_resource type="Texture2D" uid="uid://cea3abh5okeq8" path="res://assets/2d/PNGExports/PNGExports/Idle.png" id="23_sw7nt"]
 [ext_resource type="Script" uid="uid://caeskhje2d3sl" path="res://scenes/levels/level_1/falling_barrel.gd" id="25_28n4u"]
+[ext_resource type="Script" uid="uid://uya14ih5ecg0" path="res://scenes/levels/level_1/spawn_point.gd" id="26_jvpbq"]
 [ext_resource type="Texture2D" uid="uid://nalmxmm5cahq" path="res://assets/2d/hazard-sign.png" id="26_vva6n"]
 [ext_resource type="Script" uid="uid://o75evnn04kyw" path="res://scenes/levels/level_1/warning_sign.gd" id="27_vm2d2"]
 [ext_resource type="Script" uid="uid://bqq36v2uf20u1" path="res://scenes/levels/level_1/actions_sequence.gd" id="28_hws8l"]
@@ -558,7 +560,7 @@ _data = {
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wloe5"]
-size = Vector3(0.20599365, 0.6201172, 1.3221893)
+size = Vector3(0.20599365, 1.55896, 1.3221893)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_41r28"]
 height = 0.42460632
@@ -655,14 +657,14 @@ shape = SubResource("CylinderShape3D_fngju")
 debug_color = Color(0.94627875, 6.6420434e-06, 0.5908495, 0.41960785)
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Player" unique_id=228915447]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
 centered = false
 offset = Vector2(-40, 0)
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_jvpbq")
-animation = &"dash_attack"
+animation = &"hurt"
 autoplay = "walk"
-frame = 14
 script = ExtResource("7_hhmec")
 render_priority_offset = 1
 all_animations_same_fps = true
@@ -910,8 +912,8 @@ transform = Transform3D(0.9758939, -0.21824545, 0, 0.21824545, 0.9758939, 0, 0, 
 size = Vector3(9.4505005, 1, 1.1543579)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Terrain/Floor" unique_id=1585650190]
-transform = Transform3D(0.9998483, -0.01741749, 0, 0.01741749, 0.9998483, 0, 0, 0, 1, 16.22737, 1.9427519, 0.009857178)
-size = Vector3(4.528076, 1, 1.1543579)
+transform = Transform3D(0.9998483, -0.01741749, 0, 0.01741749, 0.9998483, 0, 0, 0, 1, 18.223404, 1.9775231, 0.009857178)
+size = Vector3(8.520752, 1, 1.1543579)
 
 [node name="Wall" type="CSGBox3D" parent="Terrain" unique_id=539790119]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.849102, 0.08919525, -0.58012)
@@ -970,11 +972,13 @@ font_size = 16
 [node name="Combat" type="Node3D" parent="StopArea" unique_id=1537924065]
 script = ExtResource("20_5d3u7")
 
-[node name="Node3D" type="Node3D" parent="StopArea/Combat" unique_id=1221794505]
+[node name="SpawnPoint" type="Node3D" parent="StopArea/Combat" unique_id=1221794505]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.191121, 0.35672575, -0.3561312)
+script = ExtResource("26_jvpbq")
 
 [node name="Node3D2" type="Node3D" parent="StopArea/Combat" unique_id=924136723]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.119663, 0.48490644, 0.33951962)
+script = ExtResource("26_jvpbq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StopArea" unique_id=1432754048]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.016204834, 0.1899414, -0.08074188)
@@ -1028,15 +1032,20 @@ script = ExtResource("20_5d3u7")
 
 [node name="Node3D" type="Node3D" parent="StopArea2/Combat" unique_id=1387727702]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.353735, 0.24666166, 0.3170519)
+script = ExtResource("26_jvpbq")
 
 [node name="Node3D2" type="Node3D" parent="StopArea2/Combat" unique_id=2128765060]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1196628, 0.23903543, -0.15451556)
+script = ExtResource("26_jvpbq")
 
 [node name="Node3D3" type="Node3D" parent="StopArea2/Combat" unique_id=920346413]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.223568, 0.24666166, 0.3170519)
+script = ExtResource("26_jvpbq")
+enemy_scene = ExtResource("22_jvpbq")
 
 [node name="Node3D4" type="Node3D" parent="StopArea2/Combat" unique_id=447747821]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4576402, 0.23903543, -0.15451556)
+script = ExtResource("26_jvpbq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StopArea2" unique_id=1316310834]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.016204834, 0.1899414, -0.08074188)
@@ -1177,9 +1186,15 @@ start_on_stop_area_start = false
 
 [node name="Node3D3" type="Node3D" parent="StopArea3/ActionsSequence/Combat" unique_id=607831555]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1515412, -0.68691635, 0.5272124)
+script = ExtResource("26_jvpbq")
 
 [node name="Node3D4" type="Node3D" parent="StopArea3/ActionsSequence/Combat" unique_id=1333107592]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.385613, -0.7392633, 0.05564493)
+script = ExtResource("26_jvpbq")
+
+[node name="Node3D5" type="Node3D" parent="StopArea3/ActionsSequence/Combat" unique_id=478764538]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.105609, 0.48240876, 0.05564493)
+script = ExtResource("26_jvpbq")
 
 [node name="Debug" type="Node3D" parent="StopArea3" unique_id=170683313]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16372943, 0)
@@ -1218,6 +1233,74 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08062744, 0.32281494, -0.0
 shape = SubResource("BoxShape3D_41r28")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="StopArea3/StaticBody3D2" unique_id=639150518]
+size = Vector3(0.13879395, 1.6456299, 1.5839844)
+material = SubResource("StandardMaterial3D_8spg0")
+script = ExtResource("20_41r28")
+
+[node name="StopArea4" type="Area3D" parent="." unique_id=276042871]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.573135, 2.7021515, 0.061834335)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("19_8spg0")
+
+[node name="Debug" type="Node3D" parent="StopArea4" unique_id=1887594162]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16372943, 0)
+visible = false
+script = ExtResource("8_wfdrs")
+
+[node name="Label3D" type="Label3D" parent="StopArea4/Debug" unique_id=1651022782]
+text = "Health: 100"
+font_size = 16
+
+[node name="Combat" type="Node3D" parent="StopArea4" unique_id=1606394628]
+script = ExtResource("20_5d3u7")
+
+[node name="Node3D" type="Node3D" parent="StopArea4/Combat" unique_id=1933065028]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.353735, -0.7130295, 0.3170519)
+script = ExtResource("26_jvpbq")
+enemy_scene = ExtResource("22_jvpbq")
+
+[node name="Node3D2" type="Node3D" parent="StopArea4/Combat" unique_id=620010899]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1196632, -0.71710694, -0.15451556)
+script = ExtResource("26_jvpbq")
+
+[node name="Node3D3" type="Node3D" parent="StopArea4/Combat" unique_id=1880768170]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.223568, -0.7927667, 0.3170519)
+script = ExtResource("26_jvpbq")
+enemy_scene = ExtResource("22_jvpbq")
+
+[node name="Node3D4" type="Node3D" parent="StopArea4/Combat" unique_id=987323340]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4576397, -0.79684436, -0.15451556)
+script = ExtResource("26_jvpbq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StopArea4" unique_id=1527025985]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.016204834, -0.16828251, -0.08074188)
+shape = SubResource("BoxShape3D_wloe5")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="StopArea4" unique_id=1530627256]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.734646, 0, 0)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StopArea4/StaticBody3D" unique_id=741587731]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08062744, 0.32281494, -0.054986954)
+shape = SubResource("BoxShape3D_41r28")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StopArea4/StaticBody3D" unique_id=2144719348]
+size = Vector3(0.13879395, 1.6456299, 1.5839844)
+material = SubResource("StandardMaterial3D_8spg0")
+script = ExtResource("20_41r28")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="StopArea4" unique_id=1829286560]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5596844, 0, 0)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StopArea4/StaticBody3D2" unique_id=253624102]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08062744, 0.32281494, -0.054986954)
+shape = SubResource("BoxShape3D_41r28")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="StopArea4/StaticBody3D2" unique_id=2064064089]
 size = Vector3(0.13879395, 1.6456299, 1.5839844)
 material = SubResource("StandardMaterial3D_8spg0")
 script = ExtResource("20_41r28")

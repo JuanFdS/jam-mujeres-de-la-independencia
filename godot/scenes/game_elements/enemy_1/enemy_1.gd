@@ -18,6 +18,7 @@ var time_until_next_decision: float = 0.0
 @onready var nearby_player_area: Area3D = $NearbyPlayerArea
 @export var ATTACK_COOLDOWN: float = 1.5
 var time_until_next_attack: float = 0.0
+@export var in_screen_notifiers: Array[VisibleOnScreenNotifier3D]
 
 const NEAR_SPOT_THRESHOLD: float = 0.05
 
@@ -43,7 +44,7 @@ var _state_data = {}
 
 
 func _ready() -> void:
-	#$Debug.watch("State", func(): return State.keys()[state] )
+	$Debug.watch("State", func(): return State.keys()[state] )
 	#$Debug.watch("Changing state in...", func(): return "%.2f" % time_until_next_decision )
 	$Debug.watch("HP: ", func(): return hp )
 	animated_sprite_3d.animation_finished.connect(on_animation_finished)
@@ -103,7 +104,7 @@ func _players() -> Array:
 
 
 func on_animation_finished():
-	if animated_sprite_3d.animation == "jab" or animated_sprite_3d.animation == "hurt":
+	if animated_sprite_3d.animation == "attack" or animated_sprite_3d.animation == "hurt":
 		change_state(State.Idle)
 
 func closest_player() -> Player:
@@ -138,7 +139,7 @@ func update_velocity(delta):
 func on_player_is_reachable():
 	match state:
 		State.Idle, State.Following:
-			if time_until_next_attack < 0.0:
+			if time_until_next_attack < 0.0 and in_screen_notifiers.all(func(notifier): return notifier.is_on_screen()):
 				attack_player()
 
 func attack_player():
@@ -167,7 +168,7 @@ func _physics_process(delta: float) -> void:
 	process_state(delta)
 	update_velocity(delta)
 	move_and_slide()
-	if nearby_player_area.has_overlapping_bodies() and reached_spot():
+	if nearby_player_area.has_overlapping_bodies():# and reached_spot():
 		on_player_is_reachable()
 	_update_animation()
 
@@ -197,8 +198,8 @@ func _update_animation() -> void:
 			if animated_sprite_3d.animation != "hurt":
 				animated_sprite_3d.play("hurt")
 		State.Attacking:
-			if animated_sprite_3d.animation != "jab":
-				animated_sprite_3d.play("jab")
+			if animated_sprite_3d.animation != "attack":
+				animated_sprite_3d.play("attack")
 		State.Idle, State.Following:
 			if is_zero_approx(velocity.x) and is_zero_approx(velocity.z):
 				animated_sprite_3d.play("idle")

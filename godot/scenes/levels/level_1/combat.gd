@@ -1,5 +1,4 @@
 extends Node3D
-const ENEMY = preload("uid://dh702s8odk4e6")
 
 @export var trigger_node_path: NodePath = NodePath("..")
 @onready var trigger_node = get_node_or_null(trigger_node_path)
@@ -21,7 +20,7 @@ func start():
 
 func spawn_enemies():
 	for spawn_point in spawn_points:
-		var enemy = ENEMY.instantiate()
+		var enemy = spawn_point.enemy_scene.instantiate()
 		spawn_point.add_child(enemy)
 		enemies.push_back(enemy)
 		enemy.defeated.connect(func(): enemy_defeated(enemy))

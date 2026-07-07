@@ -14,6 +14,18 @@
 height = 0.1646347
 radius = 0.07128906
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_41r28"]
+atlas = ExtResource("4_gd8x3")
+region = Rect2(0, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1iula"]
+atlas = ExtResource("4_gd8x3")
+region = Rect2(96, 0, 96, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7p11"]
+atlas = ExtResource("4_gd8x3")
+region = Rect2(192, 0, 96, 63)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_dycye"]
 atlas = ExtResource("2_s1f0b")
 region = Rect2(288, 0, 96, 63)
@@ -37,18 +49,6 @@ region = Rect2(192, 0, 96, 63)
 [sub_resource type="AtlasTexture" id="AtlasTexture_28n4u"]
 atlas = ExtResource("3_03jj8")
 region = Rect2(288, 0, 96, 63)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_41r28"]
-atlas = ExtResource("4_gd8x3")
-region = Rect2(0, 0, 96, 63)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1iula"]
-atlas = ExtResource("4_gd8x3")
-region = Rect2(96, 0, 96, 63)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_q7p11"]
-atlas = ExtResource("4_gd8x3")
-region = Rect2(192, 0, 96, 63)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g76na"]
 atlas = ExtResource("2_s1f0b")
@@ -80,6 +80,20 @@ region = Rect2(288, 0, 96, 63)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ojo11"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41r28")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1iula")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7p11")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 6.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dycye")
@@ -115,20 +129,6 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 8.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_41r28")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1iula")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q7p11")
-}],
-"loop": false,
-"name": &"jab",
-"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -192,7 +192,7 @@ offset = Vector2(-48, 0)
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_ojo11")
-animation = &"jab"
+animation = &"attack"
 autoplay = "walk"
 frame = 2
 script = ExtResource("6_cvbm0")
@@ -226,15 +226,13 @@ shape = SubResource("BoxShape3D_41r28")
 
 [node name="Attack1" type="Node3D" parent="HitBoxes" unique_id=711051563]
 script = ExtResource("9_h0skt")
-knockback = null
+attack_type = 2
 movement_speed_multiplier = 0.0
-animation = "jab"
+animation = "attack"
 collision_frame_begin = 2
 collision_frame_end = 3
 combo_window_frame_begin = 2
 combo_window_frame_end = 3
-cancel_window_frame_begin = 2
-cancel_window_frame_end = 3
 
 [node name="Area3D" type="Area3D" parent="HitBoxes/Attack1" unique_id=1543276083]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16746724, 0.2112073, 0)
