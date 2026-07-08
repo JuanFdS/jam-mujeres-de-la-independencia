@@ -12,6 +12,11 @@ extends Node3D
 @export var power: float = 1.0
 var attacker: CharacterBody3D
 var collision_time_left: float = 0.0
+@export var audio: AudioStream
+var audio_stream_player: AudioStreamPlayer2D
+@export_range(-60.0, 12.0, 1.0, "suffix:db") var volume_db: float = 0.0
+@export_range(0.0, 1.0, 0.01, "suffix:s") var audio_delay: float = 0.0
+
 @export var animation: String = ""
 @export_storage var collision_frame_begin: int = 0
 @export_storage var collision_frame_end: int = 0
@@ -23,6 +28,8 @@ var collision_time_left: float = 0.0
 
 @export_storage var cancel_window_frame_begin: int = 0
 @export_storage var cancel_window_frame_end: int = 0
+
+
 
 var enemies_hit: Array = []
 
@@ -70,6 +77,11 @@ func _ready() -> void:
 	attacker = find_parent("HitBoxes").get_parent()
 	if Engine.is_editor_hint():
 		return
+	if audio:
+		audio_stream_player = AudioStreamPlayer2D.new()
+		audio_stream_player.volume_db = volume_db
+		add_child(audio_stream_player)
+		audio_stream_player.stream = audio
 	_toggle_collision(false)
 	area_3d.area_entered.connect(on_area_entered)
 	_animated_sprite_3d().frame_changed.connect(on_frame_changed)
@@ -96,6 +108,10 @@ func is_cancellable():
 
 func start():
 	enemies_hit = []
+	if audio:
+		if audio_delay > 0:
+			await get_tree().create_timer(audio_delay).timeout
+		audio_stream_player.play()
 
 func stop():
 	pass

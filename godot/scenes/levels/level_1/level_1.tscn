@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d0cuh0as5wc5j" path="res://scenes/game_elements/barrel/barrel.gd" id="1_1iula"]
 [ext_resource type="Script" uid="uid://bgpa8q2gaoipp" path="res://scenes/levels/level_1/follow_player_camera.gd" id="1_58uyj"]
+[ext_resource type="Script" uid="uid://bhuud4c44ajic" path="res://scenes/levels/level_1/level_1.gd" id="1_658j2"]
 [ext_resource type="Script" uid="uid://dih2ehd6nvl67" path="res://scenes/game_elements/player/player.gd" id="1_spwf2"]
 [ext_resource type="PackedScene" uid="uid://ll0xifg1pa84" path="res://assets/3d/3d-lowpoly-models/barrel/barrel.fbx" id="3_1iula"]
 [ext_resource type="Texture2D" uid="uid://coa12acpt5rmt" path="res://assets/2d/PNGExports/PNGExports/GroundCombo1.png" id="3_5d3u7"]
@@ -17,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://fxmpwfsvaj7q" path="res://assets/2d/PNGExports/PNGExports/LungingStab.png" id="9_scqv6"]
 [ext_resource type="Script" uid="uid://ba0vff8eej3s5" path="res://scenes/game_elements/player/spots_for_enemies.gd" id="15_1iula"]
 [ext_resource type="Script" uid="uid://bly41ce6nmjfm" path="res://scenes/game_elements/hurt_box.gd" id="15_rmnd1"]
+[ext_resource type="AudioStream" uid="uid://bkfyy847pu6j4" path="res://assets/audio/sounds/espada corte.mp3" id="18_7nyn5"]
 [ext_resource type="Script" uid="uid://lm2xhsocbfhm" path="res://scenes/levels/level_1/stop_area.gd" id="19_8spg0"]
 [ext_resource type="Texture2D" uid="uid://bmgfgujoniaaq" path="res://addons/awesome_input_icons/assets/input_icons/keyboard/x.svg" id="19_q7p11"]
 [ext_resource type="Script" uid="uid://konhgxcntcgi" path="res://addons/awesome_input_icons/classes/InputIconSprite2D.gd" id="19_v0dvh"]
@@ -451,6 +453,12 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_7nyn5"]
+random_pitch = 1.0594631
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("18_7nyn5")
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_wfdrs"]
 size = Vector3(0.21438476, 0.16577148, 0.1)
 
@@ -594,6 +602,7 @@ _data = {
 }
 
 [node name="Level1" type="Node3D" unique_id=759788000]
+script = ExtResource("1_658j2")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1594278636 node_paths=PackedStringArray("player")]
 unique_name_in_owner = true
@@ -648,8 +657,9 @@ offset = Vector2(-40, 0)
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_jvpbq")
-animation = &"hurt"
+animation = &"attack_fast_1"
 autoplay = "walk"
+frame = 3
 script = ExtResource("7_hhmec")
 render_priority_offset = 1
 all_animations_same_fps = true
@@ -669,6 +679,7 @@ font_size = 16
 script = ExtResource("9_ldw0e")
 attack_type = 2
 movement_speed_multiplier = 0.0
+audio = SubResource("AudioStreamRandomizer_7nyn5")
 animation = "attack_fast_1"
 collision_frame_begin = 1
 collision_frame_end = 3
@@ -693,6 +704,9 @@ attack_type = 2
 knockback = -0.3
 movement_speed_multiplier = 0.0
 power = 1.5
+audio = SubResource("AudioStreamRandomizer_7nyn5")
+volume_db = null
+audio_delay = null
 animation = "attack_fast_2"
 collision_frame_begin = 1
 collision_frame_end = 3
@@ -717,6 +731,9 @@ attack_type = 2
 knockback = 1.0
 movement_speed_multiplier = 0.0
 power = 3.0
+audio = SubResource("AudioStreamRandomizer_7nyn5")
+volume_db = null
+audio_delay = null
 animation = "attack_fast_3"
 collision_frame_begin = 2
 collision_frame_end = 4
@@ -741,6 +758,9 @@ attack_type = 1
 knockback = 0.1
 is_air = true
 power = 0.75
+audio = SubResource("AudioStreamRandomizer_7nyn5")
+volume_db = null
+audio_delay = null
 animation = "air_attack"
 collision_frame_begin = 1
 collision_frame_end = 4
@@ -764,6 +784,7 @@ script = ExtResource("9_ldw0e")
 cancellable_on_enemy_hit = true
 comboable_on_enemy_hit = true
 knockback = 1.0
+audio = SubResource("AudioStreamRandomizer_7nyn5")
 animation = "dash_attack"
 collision_frame_begin = 3
 collision_frame_end = 12

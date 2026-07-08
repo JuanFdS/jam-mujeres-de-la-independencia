@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://hxdav62nt1od"]
+
+[ext_resource type="Script" uid="uid://bh73hw64ysqsx" path="res://scenes/music/background_music.gd" id="1_bxyi6"]
+[ext_resource type="AudioStream" uid="uid://b05fnmrrmonka" path="res://assets/audio/music/PAMPA Y TELA mp3.mp3" id="1_ds3or"]
+
+[node name="BackgroundMusic" type="Node" unique_id=238918351]
+script = ExtResource("1_bxyi6")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=850277975]
+stream = ExtResource("1_ds3or")

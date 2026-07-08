@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bkfyy847pu6j4"
+path="res://.godot/imported/espada corte.mp3-27d6ba3aa8e97cf79ee03ce46be18287.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sounds/espada corte.mp3"
+dest_files=["res://.godot/imported/espada corte.mp3-27d6ba3aa8e97cf79ee03ce46be18287.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
