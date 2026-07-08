@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://bsb472gj70ykw" path="res://scenes/levels/level_1/debug.gd" id="8_wfdrs"]
 [ext_resource type="Script" uid="uid://bg5uya64avtsn" path="res://scenes/game_elements/attack/attack.gd" id="9_ldw0e"]
 [ext_resource type="Texture2D" uid="uid://fxmpwfsvaj7q" path="res://assets/2d/PNGExports/PNGExports/LungingStab.png" id="9_scqv6"]
+[ext_resource type="Texture2D" uid="uid://sw5doptbaweo" path="res://assets/2d/PNGExports/PNGExports/ShootGun2.png" id="12_dycye"]
 [ext_resource type="Script" uid="uid://ba0vff8eej3s5" path="res://scenes/game_elements/player/spots_for_enemies.gd" id="15_1iula"]
 [ext_resource type="Script" uid="uid://bly41ce6nmjfm" path="res://scenes/game_elements/hurt_box.gd" id="15_rmnd1"]
 [ext_resource type="AudioStream" uid="uid://bkfyy847pu6j4" path="res://assets/audio/sounds/espada corte.mp3" id="18_7nyn5"]
@@ -197,6 +198,10 @@ region = Rect2(1120, 0, 80, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mjybv"]
 atlas = ExtResource("6_v0dvh")
+region = Rect2(80, 0, 80, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_goq2r"]
+atlas = ExtResource("12_dycye")
 region = Rect2(80, 0, 80, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hhk8f"]
@@ -401,6 +406,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_goq2r")
+}],
+"loop": true,
+"name": &"grab",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_hhk8f")
 }],
 "loop": false,
@@ -470,6 +483,9 @@ size = Vector3(0.1980127, 0.20501709, 0.15872803)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1exhq"]
 size = Vector3(0.41248292, 0.27659607, 0.15872803)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dycye"]
+size = Vector3(0.1, 0.1, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v0dvh"]
 size = Vector3(0.30574036, 0.24491024, 0.34571838)
@@ -657,9 +673,8 @@ offset = Vector2(-40, 0)
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_jvpbq")
-animation = &"attack_fast_1"
+animation = &"grab"
 autoplay = "walk"
-frame = 3
 script = ExtResource("7_hhmec")
 render_priority_offset = 1
 all_animations_same_fps = true
@@ -705,8 +720,6 @@ knockback = -0.3
 movement_speed_multiplier = 0.0
 power = 1.5
 audio = SubResource("AudioStreamRandomizer_7nyn5")
-volume_db = null
-audio_delay = null
 animation = "attack_fast_2"
 collision_frame_begin = 1
 collision_frame_end = 3
@@ -732,8 +745,6 @@ knockback = 1.0
 movement_speed_multiplier = 0.0
 power = 3.0
 audio = SubResource("AudioStreamRandomizer_7nyn5")
-volume_db = null
-audio_delay = null
 animation = "attack_fast_3"
 collision_frame_begin = 2
 collision_frame_end = 4
@@ -759,8 +770,6 @@ knockback = 0.1
 is_air = true
 power = 0.75
 audio = SubResource("AudioStreamRandomizer_7nyn5")
-volume_db = null
-audio_delay = null
 animation = "air_attack"
 collision_frame_begin = 1
 collision_frame_end = 4
@@ -802,6 +811,21 @@ collision_mask = 36
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player/HitBoxes/DashAttack/Area3D" unique_id=304230241]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14157438, 0.015846252, 0.0054748356)
 shape = SubResource("BoxShape3D_1exhq")
+
+[node name="GrabPointPivot" type="Node3D" parent="Player" unique_id=86127788]
+
+[node name="GrabPoint" type="Marker3D" parent="Player/GrabPointPivot" unique_id=1275035452]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15691543, 0.2811724, 0)
+
+[node name="GrabArea" type="Area3D" parent="Player" unique_id=271166840]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/GrabArea" unique_id=263923503]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.215, 0)
+shape = SubResource("BoxShape3D_dycye")
+debug_color = Color(0.8576145, 0.001536141, 0.97465914, 1)
 
 [node name="HurtBox" type="Area3D" parent="Player" unique_id=1760445463]
 collision_layer = 2

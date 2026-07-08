@@ -79,6 +79,7 @@ func _ready() -> void:
 		return
 	if audio:
 		audio_stream_player = AudioStreamPlayer2D.new()
+		audio_stream_player.bus = "Sound"
 		audio_stream_player.volume_db = volume_db
 		add_child(audio_stream_player)
 		audio_stream_player.stream = audio

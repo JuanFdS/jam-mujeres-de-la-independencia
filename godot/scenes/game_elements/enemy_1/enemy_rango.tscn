@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://scatctgnmjew" path="res://assets/2d/nico/knockdown-3.png" id="10_irfkh"]
 [ext_resource type="Texture2D" uid="uid://yq40ixfv1i8j" path="res://assets/2d/nico/rango-walk1.png" id="11_dfqcu"]
 [ext_resource type="Texture2D" uid="uid://bk5x5psa1gkwu" path="res://assets/2d/nico/rango-walk-2.png" id="12_2tdiv"]
+[ext_resource type="Script" uid="uid://cy7b4w5w50q2b" path="res://scenes/game_elements/enemy_1/detect_other_enemies.gd" id="16_45xcf"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_fngju"]
 height = 0.1646347
@@ -99,6 +100,9 @@ size = Vector3(4.5, 0.864, 0.127)
 [sub_resource type="BoxShape3D" id="BoxShape3D_1iula"]
 size = Vector3(0.21438476, 0.4013672, 0.1)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_gamxh"]
+radius = 0.20076412
+
 [node name="EnemyRanged" type="CharacterBody3D" unique_id=94818539 node_paths=PackedStringArray("in_screen_notifiers")]
 collision_layer = 4
 script = ExtResource("1_3fnyx")
@@ -122,13 +126,11 @@ debug_color = Color(0.94627875, 6.6420434e-06, 0.5908495, 0.41960785)
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
 lod_bias = 0.001
 centered = false
-offset = Vector2(-200, 0)
+offset = Vector2(-300, 0)
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_4wi1h")
 animation = &"attack"
-frame = 1
-frame_progress = 1.0
 script = ExtResource("6_t3ips")
 render_priority_offset = 0
 
@@ -192,3 +194,14 @@ aabb = AABB(-0.034264997, 0.19437653, -0.001, 0.06852999, 0.06437194, 0.002)
 [node name="VisibleOnScreenNotifier3D2" type="VisibleOnScreenNotifier3D" parent="." unique_id=1220652737]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17250013, 0, 0)
 aabb = AABB(-0.034264997, 0.19437653, -0.001, 0.06852999, 0.06437194, 0.002)
+
+[node name="DetectOtherEnemies" type="Area3D" parent="." unique_id=1039330463]
+collision_layer = 0
+collision_mask = 4
+monitoring = false
+monitorable = false
+script = ExtResource("16_45xcf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectOtherEnemies" unique_id=176915683]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22314358, 0)
+shape = SubResource("SphereShape3D_gamxh")

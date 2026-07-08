@@ -1,3 +1,4 @@
+class_name Enemy
 extends CharacterBody3D
 
 signal defeated
@@ -22,6 +23,9 @@ var time_until_next_attack: float = 0.0
 
 const NEAR_SPOT_THRESHOLD: float = 0.05
 
+signal entered_state(a_state)
+signal exited_state(a_state)
+
 var facing_direction: FacingDirection = FacingDirection.Right
 
 enum FacingDirection {
@@ -36,7 +40,8 @@ enum State {
 	Hurting,
 	Following,
 	KnockedDown,
-	Defeated
+	Defeated,
+	Grabbed
 }
 
 var state = State.Idle
@@ -54,6 +59,23 @@ func _ready() -> void:
 	points_at_which_it_will_fall.reverse()
 	#$Debug.watch("Points at it will fall: ", func(): return points_at_which_it_will_fall )
 
+func be_grabbed_by(player, grab_point):
+	change_state(State.Grabbed, { "grab_point": grab_point, "player": player })
+
+func freed_from_grab():
+	match state:
+		State.Grabbed:
+			change_state(State.Idle)
+
+func thrown():
+	var power: float
+	if points_at_which_it_will_fall.size() <= times_it_has_already_fallen:
+		power = hp
+	else:
+		power = hp - points_at_which_it_will_fall[times_it_has_already_fallen]
+	var direction = sign(state_data()["grab_point"].global_position.x - state_data()["player"].global_position.x)
+	hit(Attack.Hit.new(power, state_data()["grab_point"].global_position, direction, 2.0), true)
+
 func state_data():
 	return _state_data[state]
 
@@ -65,7 +87,7 @@ func change_state(new_state: State, data = {}):
 	enter_state()
 
 func exit_state():
-	pass
+	exited_state.emit(state)
 
 func enter_state():
 	match state:
@@ -95,6 +117,7 @@ func enter_state():
 			if not spot:
 				change_state(State.Idle)
 				return
+	entered_state.emit(state)
 
 func spots_of(player):
 	return player.get_node("SpotsForEnemies")
@@ -102,9 +125,8 @@ func spots_of(player):
 func _players() -> Array:
 	return get_tree().get_nodes_in_group("player")
 
-
 func on_animation_finished():
-	if animated_sprite_3d.animation == "attack" or animated_sprite_3d.animation == "hurt":
+	if (animated_sprite_3d.animation == "attack" and state == State.Attacking) or (animated_sprite_3d.animation == "hurt" and state == State.Hurting):
 		change_state(State.Idle)
 
 func closest_player() -> Player:
@@ -118,6 +140,12 @@ func update_velocity(delta):
 	if not is_on_floor():
 		velocity.y += get_gravity().y * delta
 	match state:
+		State.Grabbed:
+			velocity = Vector3.ZERO
+			var OFFSET_GRAB_Y = 0.3
+			global_position = state_data().grab_point.global_position - Vector3.UP * OFFSET_GRAB_Y
+			var player = state_data().player
+			facing_direction = FacingDirection.Left if player.global_position.x < global_position.x else FacingDirection.Right
 		State.KnockedDown, State.Defeated, State.Hurting:
 			velocity = velocity.move_toward(Vector3.ZERO, delta)
 		State.Attacking:
@@ -177,7 +205,7 @@ func reached_spot() -> bool:
 
 func take_decision() -> void:
 	match state:
-		State.Attacking, State.Hurting, State.KnockedDown, State.Defeated:
+		State.Attacking, State.Hurting, State.KnockedDown, State.Defeated, State.Grabbed:
 			return
 	var next_state = [State.Idle, State.Following].filter(func(potential_new_state): return potential_new_state != state).pick_random()
 	change_state(next_state)
@@ -186,6 +214,8 @@ func take_decision() -> void:
 func _update_animation() -> void:
 	animated_sprite_3d.flip_h = facing_direction == 1
 	match state:
+		State.Grabbed:
+			animated_sprite_3d.play("hurt")
 		State.Defeated:
 			if not animated_sprite_3d.animation in ["knockedout", "defeated"]:
 				animated_sprite_3d.play("knockedout")
@@ -206,7 +236,7 @@ func _update_animation() -> void:
 			else:
 				animated_sprite_3d.play("walk")
 
-func hit(attack: Attack.Hit):
+func hit(attack: Attack.Hit, hits_others_on_knocked_down: bool = false):
 	match state:
 		State.KnockedDown, State.Defeated:
 			return
@@ -215,8 +245,6 @@ func hit(attack: Attack.Hit):
 		change_state(State.Defeated, { "attack": attack, "time_left": 2.0 })
 	elif times_it_has_already_fallen < times_it_will_fall and hp <= points_at_which_it_will_fall[times_it_has_already_fallen]:
 		times_it_has_already_fallen += 1
-		change_state(State.KnockedDown, { "attack": attack, "knocked_down_time_left": randf_range(1.5, 2.0) })
+		change_state(State.KnockedDown, { "attack": attack, "knocked_down_time_left": randf_range(1.5, 2.0), "hits_others": hits_others_on_knocked_down })
 	else:
 		change_state(State.Hurting, { "attack": attack })
-
-	

@@ -35,7 +35,8 @@ enum State {
 	Hurting,
 	Jumping,
 	Running,
-	Dashing
+	Dashing,
+	Grabbing
 }
 
 enum AttackType {
@@ -55,6 +56,15 @@ func _ready() -> void:
 	animated_sprite_3d.animation_finished.connect(on_animation_finished)
 	%HealthBar.max_value = max_hp
 	%HealthBar.value = hp
+	$GrabArea.body_entered.connect(func(body):
+		match state:
+			State.Running:
+				grab(body)
+	)
+
+func grab(enemy):
+	change_state(State.Grabbing, { "grabbed_enemy": enemy })
+	enemy.be_grabbed_by(self, %GrabPoint)
 
 func _current_attack() -> Attack:
 	match state:
@@ -78,6 +88,8 @@ func exit_state():
 		State.Dashing:
 			time_until_next_after_image_dash = 0.0
 			time_until_next_cooldown = dash_cooldown
+		State.Grabbing:
+			state_data()["grabbed_enemy"].freed_from_grab()
 
 func enter_state():
 	match state:
@@ -142,6 +154,8 @@ func _physics_process(delta: float) -> void:
 	var movement := (transform.basis * Vector3(sign(input_dir.x), 0, sign(input_dir.y)))
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	match state:
+		State.Grabbing:
+			movement = Vector3.ZERO
 		State.Dashing:
 			direction = Vector3(facing_direction, 0, 0)
 			movement = direction * DASH_SPEED
@@ -171,6 +185,7 @@ func _physics_process(delta: float) -> void:
 	
 
 	$HitBoxes.scale.x = facing_direction
+	$GrabPointPivot.scale.x = facing_direction
 
 	if Input.is_action_just_pressed("attack_%s" % player_id):
 		try_fast_attack()
@@ -229,6 +244,9 @@ func try_dash():
 
 func try_fast_attack():
 	match state:
+		State.Grabbing:
+			state_data()["grabbed_enemy"].thrown()
+			change_state(State.Attacking, { "attack": $HitBoxes/Attack1 })
 		State.Hurting:
 			pass
 		State.Dashing:
@@ -249,6 +267,8 @@ func _update_animation() -> void:
 		$AnimatedSprite3D.modulate.a = 1.0
 	
 	match state:
+		State.Grabbing:
+			animated_sprite_3d.play("grab")
 		State.Dashing:
 			if animated_sprite_3d.animation != "dash":
 				animated_sprite_3d.play("dash")
