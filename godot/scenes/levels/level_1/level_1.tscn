@@ -792,8 +792,8 @@ material = SubResource("StandardMaterial3D_8spg0")
 script = ExtResource("20_41r28")
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=1298747055]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.984945, 3.9852653, 0.21499857)
-collision_layer = 0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6428123, 0.26385236, 0.21499857)
+collision_layer = 2
 collision_mask = 41
 script = ExtResource("1_spwf2")
 
@@ -1083,8 +1083,8 @@ transform = Transform3D(0.9758939, -0.21824545, 0, 0.21824545, 0.9758939, 0, 0, 
 size = Vector3(9.4505005, 1, 1.1543579)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Terrain/Floor" unique_id=1585650190]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.580015, 1.9596097, 0.009857178)
-size = Vector3(13.235535, 0.88690186, 1.1543579)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.259474, 1.9596097, 0.009857178)
+size = Vector3(20.594452, 0.88690186, 1.1543579)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Terrain" unique_id=1515874670]
 
@@ -1524,8 +1524,44 @@ mesh = SubResource("ArrayMesh_ktgh6")
 [node name="Gallery_Colonial" parent="Assets_colonial9" index="1" unique_id=40880014]
 mesh = SubResource("ArrayMesh_jitr1")
 
+[node name="Assets_colonial10" parent="." unique_id=1599419136 instance=ExtResource("38_ynakb")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 26.739695, 1.6848674, -1.0242497)
+
+[node name="Front_Colonial" parent="Assets_colonial10" index="0" unique_id=1528418109]
+mesh = SubResource("ArrayMesh_ktgh6")
+
+[node name="Gallery_Colonial" parent="Assets_colonial10" index="1" unique_id=40880014]
+mesh = SubResource("ArrayMesh_jitr1")
+
+[node name="Assets_colonial11" parent="." unique_id=643268911 instance=ExtResource("38_ynakb")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 28.106426, 1.6848674, -1.0242497)
+
+[node name="Front_Colonial" parent="Assets_colonial11" index="0" unique_id=1528418109]
+mesh = SubResource("ArrayMesh_ktgh6")
+
+[node name="Gallery_Colonial" parent="Assets_colonial11" index="1" unique_id=40880014]
+mesh = SubResource("ArrayMesh_jitr1")
+
+[node name="Assets_colonial12" parent="." unique_id=51612449 instance=ExtResource("38_ynakb")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 29.516314, 1.6848674, -1.0242497)
+
+[node name="Front_Colonial" parent="Assets_colonial12" index="0" unique_id=1528418109]
+mesh = SubResource("ArrayMesh_ktgh6")
+
+[node name="Gallery_Colonial" parent="Assets_colonial12" index="1" unique_id=40880014]
+mesh = SubResource("ArrayMesh_jitr1")
+
+[node name="Assets_colonial13" parent="." unique_id=1900029631 instance=ExtResource("38_ynakb")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 30.883045, 1.6848674, -1.0242497)
+
+[node name="Front_Colonial" parent="Assets_colonial13" index="0" unique_id=1528418109]
+mesh = SubResource("ArrayMesh_ktgh6")
+
+[node name="Gallery_Colonial" parent="Assets_colonial13" index="1" unique_id=40880014]
+mesh = SubResource("ArrayMesh_jitr1")
+
 [node name="StopArea4" type="Area3D" parent="." unique_id=276042871]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.573135, 2.7021515, 0.061834335)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.204853, 2.7021515, 0.061834335)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("19_8spg0")
@@ -1593,7 +1629,7 @@ material = SubResource("StandardMaterial3D_8spg0")
 script = ExtResource("20_41r28")
 
 [node name="StopArea5" type="Area3D" parent="." unique_id=1846307740]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.9578, 2.7021515, 0.061834335)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.259985, 2.7021515, 0.061834335)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("19_8spg0")
@@ -1653,3 +1689,7 @@ script = ExtResource("20_41r28")
 [editable path="Assets_colonial7"]
 [editable path="Assets_colonial8"]
 [editable path="Assets_colonial9"]
+[editable path="Assets_colonial10"]
+[editable path="Assets_colonial11"]
+[editable path="Assets_colonial12"]
+[editable path="Assets_colonial13"]
