@@ -1,7 +1,7 @@
 extends Node3D
 
 @onready var animated_sprite_3d: AnimatedSprite3D = $"../AnimatedSprite3D"
-const PROJECTILE = preload("uid://tees2sw60io8")
+const PROJECTILE = preload("res://scenes/game_elements/enemy_1/projectile.tscn")
 
 @export var power: float = 1.0
 

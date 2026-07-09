@@ -42,7 +42,7 @@ func _extend_inspector_property(
 	_usage_flags: int,
 	_wide: bool):
 		if property_name == "animation":
-			var window_frame_selector = preload("uid://dd1jpdh0c2p1i").instantiate()
+			var window_frame_selector = preload("res://editor/window_frame_selector/window_frame_selector.tscn").instantiate()
 			window_frame_selector.animated_sprite_3d = _animated_sprite_3d()
 			window_frame_selector.animation_name = animation
 			window_frame_selector.collision_window = [collision_frame_begin, collision_frame_end]

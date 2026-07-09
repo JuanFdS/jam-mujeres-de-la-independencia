@@ -14,10 +14,11 @@ jobs:
       - name: Cache import assets
         uses: actions/cache@v3
         with:
-          path: .godot/imported/
+          path: godot/.godot/
           key: import-assets-${{ runner.os }}-${{ github.sha }}
       - name: Import assets
-        run: godot --headless --verbose --editor --quit
+        run: godot --headless --verbose --import
+        working-directory: ./godot
 
   export-game:
     runs-on: ubuntu-latest
@@ -26,7 +27,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/cache@v3
         with:
-          path: .godot/imported/
+          path: godot/.godot/
           key: import-assets-${{ runner.os }}-${{ github.sha }}
       - name: install wine
         run: |

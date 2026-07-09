@@ -1,5 +1,5 @@
 extends Node3D
 
-const ENEMY = preload("uid://dh702s8odk4e6")
+const ENEMY = preload("res://scenes/game_elements/enemy_1/enemy.tscn")
 
 @export var enemy_scene: PackedScene = ENEMY
