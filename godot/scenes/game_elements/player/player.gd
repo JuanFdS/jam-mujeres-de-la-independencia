@@ -22,6 +22,9 @@ const STUN_TIME = 0.25
 @export var dash_cooldown: float = 0.3
 var time_until_next_cooldown: float = 0.0
 
+var buffered_inputs: Dictionary[StringName, float] = {}
+@export var buffer_time = 0.2
+
 var facing_direction: FacingDirection = FacingDirection.Right
 
 enum FacingDirection {
@@ -112,7 +115,18 @@ func on_animation_finished():
 			if animated_sprite_3d.animation == _current_attack().animation:
 				change_state(State.Idle)
 
+func is_action_buffered(action_name: StringName) -> bool:
+	return buffered_inputs.has(action_name) and buffered_inputs[action_name] > 0.0
+
+func action_consumed_from_buffer(action_name: StringName) -> void:
+	buffered_inputs.erase(action_name)
+
+func buffer_action(action_name: StringName) -> void:
+	buffered_inputs[action_name] = buffer_time
+
 func _physics_process(delta: float) -> void:
+	for buffered_input in buffered_inputs.keys():
+		buffered_inputs[buffered_input] = move_toward(buffered_inputs[buffered_input], 0.0, delta)
 	time_until_next_cooldown -= delta
 	match state:
 		State.Hurting:
@@ -137,16 +151,21 @@ func _physics_process(delta: float) -> void:
 
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-		
-	if Input.is_action_just_pressed("jump_%s" % player_id) and is_on_floor():
+
+	var jump_action = "jump_%s" % player_id
+	if Input.is_action_just_pressed(jump_action):
+		buffer_action(jump_action)
+	if is_action_buffered(jump_action) and is_on_floor():
 		match state:
 			State.Hurting:
 				pass
 			State.Attacking:
 				if _current_attack().is_cancellable():
+					action_consumed_from_buffer(jump_action)
 					change_state(State.Jumping)
 					velocity.y = JUMP_VELOCITY
 			_:
+				action_consumed_from_buffer(jump_action)
 				change_state(State.Jumping)
 				velocity.y = JUMP_VELOCITY
 
@@ -187,9 +206,17 @@ func _physics_process(delta: float) -> void:
 	$HitBoxes.scale.x = facing_direction
 	$GrabPointPivot.scale.x = facing_direction
 
-	if Input.is_action_just_pressed("attack_%s" % player_id):
+	var attack_action = "attack_%s" % player_id
+	if Input.is_action_just_pressed(attack_action):
+		buffer_action(attack_action)
+	if is_action_buffered(attack_action):
 		try_fast_attack()
-	if Input.is_action_just_pressed("dash_%s" % player_id):
+		
+	var dash_action = "dash_%s" % player_id
+	if Input.is_action_just_pressed(dash_action):
+		buffer_action(dash_action)
+
+	if is_action_buffered(dash_action):
 		try_dash()
 
 	move_and_slide()
@@ -228,36 +255,45 @@ func update_state_based_on_movement():
 					change_state(State.Idle)
 
 func try_dash():
+	var dash_action = "dash_%s" % player_id
 	if time_until_next_cooldown > 0.0:
 		return
 	match state:
 		State.Hurting:
 			pass
 		State.Idle, State.Running:
+			action_consumed_from_buffer(dash_action)
 			change_state(State.Dashing, { "dash_direction": facing_direction })
 		State.Attacking:
 			if _current_attack().is_cancellable():
 				if _current_attack().attack_type == AttackType.Air:
 					pass
 				else:
+					action_consumed_from_buffer(dash_action)
 					change_state(State.Dashing, { "dash_direction": facing_direction })
 
 func try_fast_attack():
+	var attack_action = "attack_%s" % player_id
 	match state:
 		State.Grabbing:
+			action_consumed_from_buffer(attack_action)
 			state_data()["grabbed_enemy"].thrown()
 			change_state(State.Attacking, { "attack": $HitBoxes/Attack1 })
 		State.Hurting:
 			pass
 		State.Dashing:
+			action_consumed_from_buffer(attack_action)
 			change_state(State.Attacking, { "attack": $HitBoxes/DashAttack })
 		State.Idle, State.Running:
+			action_consumed_from_buffer(attack_action)
 			change_state(State.Attacking, { "attack": $HitBoxes/Attack1 })
 		State.Jumping:
+			action_consumed_from_buffer(attack_action)
 			change_state(State.Attacking, { "attack": $HitBoxes/AirAttack })
 		State.Attacking:
 			var next_attack = _current_attack().get_combo_attack()
 			if next_attack:
+				action_consumed_from_buffer(attack_action)
 				change_state(State.Attacking, { "attack": next_attack })
 
 func _update_animation() -> void:
@@ -298,6 +334,7 @@ func after_image():
 	# Set the texture and frame of the after_image
 	after_image.flip_h = $AnimatedSprite3D.flip_h
 	after_image.texture = current_texture
+	after_image.global_transform = $AnimatedSprite3D.global_transform
 	#after_image.frame = $Sprite2D.frame
 	## Calculate the frame size and coordinates
 	#var frame_size = current_texture.get_size() / Vector2($Sprite2D.hframes, $Sprite2D.vframes)

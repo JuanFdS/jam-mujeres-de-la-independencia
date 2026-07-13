@@ -22,3 +22,4 @@ uv1_scale = Vector3(0.025, 0.025, 0.025)
 uv1_triplanar = true
 uv1_world_triplanar = true
 texture_filter = 0
+fov_override = 104.1

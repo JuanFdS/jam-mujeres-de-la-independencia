@@ -30,16 +30,17 @@ func _get_property_list() -> Array[Dictionary]:
 	return []
 
 func _ready() -> void:
+	
 	if Engine.is_editor_hint(): return 
 	if all_animations_same_fps:
 		for animation_name in sprite_frames.get_animation_names():
 			sprite_frames.set_animation_speed(animation_name, fps_for_all_animations)
 	set_process(false)
+	_create_shadow()
 	await get_tree().process_frame
 	billboard = BaseMaterial3D.BILLBOARD_FIXED_Y
 	alpha_cut = SpriteBase3D.ALPHA_CUT_DISABLED
 	cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	_create_shadow()
 	#$"../Debug".watch("render priority", func(): return render_priority)
 	set_process(true)
 
@@ -56,4 +57,7 @@ func _create_shadow():
 	add_child(shadow)
 	shadow.alpha_cut = SpriteBase3D.ALPHA_CUT_DISCARD
 	shadow.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY
+	shadow.scale = Vector3.ONE
+	shadow.position = Vector3.ZERO
+	#shadow.offset.y = 100
 	

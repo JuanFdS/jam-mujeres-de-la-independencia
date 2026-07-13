@@ -29,7 +29,7 @@ window/stretch/aspect="keep_height"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/awesome_input_icons/plugin.cfg", "res://addons/extendable_inspector/plugin.cfg")
+enabled=PackedStringArray("res://addons/awesome_input_icons/plugin.cfg", "res://addons/extendable_inspector/plugin.cfg", "res://addons/sprite_frames_exported_textures/plugin.cfg")
 
 [gui]
 
