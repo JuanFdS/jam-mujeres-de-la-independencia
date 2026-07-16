@@ -2,33 +2,66 @@
 
 [ext_resource type="Script" uid="uid://b7y5iy83w0sqf" path="res://scenes/game_elements/enemy_1/enemy_1.gd" id="1_3fnyx"]
 [ext_resource type="Script" uid="uid://x7kg006akuxf" path="res://scenes/game_elements/enemy_1/weapon.gd" id="2_u0g5v"]
-[ext_resource type="Texture2D" uid="uid://kgcbxc4wvybv" path="res://assets/2d/nico/rango-ataque.png" id="3_45xcf"]
-[ext_resource type="Texture2D" uid="uid://coqwy3du3rrd" path="res://assets/2d/nico/rango-attack-0.png" id="4_gamxh"]
-[ext_resource type="Texture2D" uid="uid://bmubgra7gsvsd" path="res://assets/2d/nico/rango-hurt.png" id="6_mo4xt"]
+[ext_resource type="Texture2D" uid="uid://h0c66kxjsdle" path="res://assets/2d/nico/gunner.png" id="3_48tdv"]
 [ext_resource type="Script" uid="uid://cq7jvfwimffdw" path="res://scenes/game_elements/sprite3d/mi_sprite3d.gd" id="6_t3ips"]
 [ext_resource type="Script" uid="uid://bsb472gj70ykw" path="res://scenes/levels/level_1/debug.gd" id="7_7l0p2"]
-[ext_resource type="Texture2D" uid="uid://bt7h32gt0ebwm" path="res://assets/2d/nico/rango-idle.png" id="7_lw3bl"]
 [ext_resource type="Script" uid="uid://bly41ce6nmjfm" path="res://scenes/game_elements/hurt_box.gd" id="8_45xcf"]
-[ext_resource type="Texture2D" uid="uid://dje1txnlp8pk5" path="res://assets/2d/nico/knockdown-0.png" id="8_sheqq"]
 [ext_resource type="Script" uid="uid://bg5uya64avtsn" path="res://scenes/game_elements/attack/attack.gd" id="9_gamxh"]
 [ext_resource type="Texture2D" uid="uid://w3ggv77pirai" path="res://assets/2d/nico/knockdown-1.png" id="9_vxxn1"]
 [ext_resource type="Texture2D" uid="uid://scatctgnmjew" path="res://assets/2d/nico/knockdown-3.png" id="10_irfkh"]
-[ext_resource type="Texture2D" uid="uid://yq40ixfv1i8j" path="res://assets/2d/nico/rango-walk1.png" id="11_dfqcu"]
-[ext_resource type="Texture2D" uid="uid://bk5x5psa1gkwu" path="res://assets/2d/nico/rango-walk-2.png" id="12_2tdiv"]
 [ext_resource type="Script" uid="uid://cy7b4w5w50q2b" path="res://scenes/game_elements/enemy_1/detect_other_enemies.gd" id="16_45xcf"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_fngju"]
 height = 0.1646347
 radius = 0.07128906
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdt3l"]
+atlas = ExtResource("3_48tdv")
+region = Rect2(360, 1535, 485, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mf27f"]
+atlas = ExtResource("3_48tdv")
+region = Rect2(1095, 1535, 485, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mmaty"]
+atlas = ExtResource("3_48tdv")
+region = Rect2(1770, 1535, 485, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3ips"]
+atlas = ExtResource("3_48tdv")
+region = Rect2(2155, 80, 485, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7l0p2"]
+atlas = ExtResource("3_48tdv")
+region = Rect2(375, 3, 485, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_45xcf"]
+atlas = ExtResource("3_48tdv")
+region = Rect2(1075, 3, 485, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gamxh"]
+atlas = ExtResource("3_48tdv")
+region = Rect2(330, 765, 485, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48tdv"]
+atlas = ExtResource("3_48tdv")
+region = Rect2(1000, 765, 550, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mo4xt"]
+atlas = ExtResource("3_48tdv")
+region = Rect2(1740, 765, 550, 500)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_4wi1h"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_45xcf")
+"texture": SubResource("AtlasTexture_wdt3l")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_gamxh")
+"texture": SubResource("AtlasTexture_mf27f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mmaty")
 }],
 "loop": false,
 "name": &"attack",
@@ -47,7 +80,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_mo4xt")
+"texture": SubResource("AtlasTexture_t3ips")
 }],
 "loop": false,
 "name": &"hurt",
@@ -55,15 +88,18 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("7_lw3bl")
+"texture": SubResource("AtlasTexture_7l0p2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_45xcf")
 }],
 "loop": true,
 "name": &"idle",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("8_sheqq")
+"texture": SubResource("AtlasTexture_t3ips")
 }, {
 "duration": 1.0,
 "texture": ExtResource("9_vxxn1")
@@ -77,17 +113,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("11_dfqcu")
+"texture": SubResource("AtlasTexture_gamxh")
 }, {
 "duration": 1.0,
-"texture": ExtResource("12_2tdiv")
+"texture": SubResource("AtlasTexture_48tdv")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_lw3bl")
+"texture": SubResource("AtlasTexture_mo4xt")
 }],
 "loop": true,
 "name": &"walk",
-"speed": 5.0
+"speed": 6.0
 }]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ldw0e"]
@@ -123,14 +159,16 @@ shape = SubResource("CylinderShape3D_fngju")
 debug_color = Color(0.94627875, 6.6420434e-06, 0.5908495, 0.41960785)
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1305602115]
-transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
+transform = Transform3D(0.125, 0, 0, 0, 0.125, 0, 0, 0, 0.125, 0, 0, 0)
 lod_bias = 0.001
 centered = false
-offset = Vector2(-300, 0)
+offset = Vector2(-250, 0)
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_4wi1h")
 animation = &"attack"
+frame = 2
+frame_progress = 1.0
 script = ExtResource("6_t3ips")
 render_priority_offset = 0
 
